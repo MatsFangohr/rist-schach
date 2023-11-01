@@ -28,7 +28,7 @@ module Splash = {
         <Utils.Notification kind=Warning>
           <div>
             <p>
-              {React.string("Coronate does not require an account.")}
+              {React.string("RistSchach does not require an account.")}
               <br />
               {React.string("It saves your data locally in your browser.")}
             </p>
@@ -46,7 +46,7 @@ module Splash = {
         </div>
         <div className="pages__title-text">
           <h1 className="title" style={ReactDOM.Style.make(~fontSize="40px", ())}>
-            {React.string("Coronate")}
+            {React.string("RistSchach")}
           </h1>
           <p className={"pages__subtitle caption-30"}> {React.string("Tournament manager")} </p>
         </div>
@@ -73,7 +73,7 @@ module Splash = {
               {React.string("Suggestions and bug reports are welcome.")}
             </a>
           </p>
-          <p> {React.string("Coronate is free software.")} </p>
+          <p> {React.string("RistSchach is free software.")} </p>
           <p>
             <a className="pages__footer-link" href=Utils.github_url>
               {React.string("Source code is available")}

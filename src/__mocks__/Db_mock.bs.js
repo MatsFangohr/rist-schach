@@ -4,14 +4,14 @@ import * as React from "react";
 import * as Belt_Map from "rescript/lib/es6/belt_Map.js";
 import * as Belt_Set from "rescript/lib/es6/belt_Set.js";
 import * as Caml_option from "rescript/lib/es6/caml_option.js";
-import * as Data_Id$Coronate from "../Data/Data_Id.bs.js";
-import * as TestData$Coronate from "../testdata/TestData.bs.js";
-import * as Data_Auth$Coronate from "../Data/Data_Auth.bs.js";
-import * as Data_Config$Coronate from "../Data/Data_Config.bs.js";
-import * as Data_Player$Coronate from "../Data/Data_Player.bs.js";
-import * as LocalForage_Id$Coronate from "../Externals/LocalForage_Id.bs.js";
-import * as Data_Tournament$Coronate from "../Data/Data_Tournament.bs.js";
-import * as LocalForage_Map$Coronate from "../Externals/LocalForage_Map.bs.js";
+import * as Data_Id$RistSchach from "../Data/Data_Id.bs.js";
+import * as TestData$RistSchach from "../testdata/TestData.bs.js";
+import * as Data_Auth$RistSchach from "../Data/Data_Auth.bs.js";
+import * as Data_Config$RistSchach from "../Data/Data_Config.bs.js";
+import * as Data_Player$RistSchach from "../Data/Data_Player.bs.js";
+import * as LocalForage_Id$RistSchach from "../Externals/LocalForage_Id.bs.js";
+import * as Data_Tournament$RistSchach from "../Data/Data_Tournament.bs.js";
+import * as LocalForage_Map$RistSchach from "../Externals/LocalForage_Map.bs.js";
 
 function func(prim0, prim1, prim2, prim3, prim4, prim5, prim6) {
   var tmp = {
@@ -33,22 +33,22 @@ function func(prim0, prim1, prim2, prim3, prim4, prim5, prim6) {
   return tmp;
 }
 
-var Config = LocalForage_Id$Coronate.MakeEncodable({
-      encode: Data_Config$Coronate.encode,
-      decode: Data_Config$Coronate.decode
+var Config = LocalForage_Id$RistSchach.MakeEncodable({
+      encode: Data_Config$RistSchach.encode,
+      decode: Data_Config$RistSchach.decode
     });
 
-var Player = LocalForage_Id$Coronate.MakeEncodable({
-      encode: Data_Player$Coronate.encode,
-      decode: Data_Player$Coronate.decode
+var Player = LocalForage_Id$RistSchach.MakeEncodable({
+      encode: Data_Player$RistSchach.encode,
+      decode: Data_Player$RistSchach.decode
     });
 
-var Tournament = LocalForage_Id$Coronate.MakeEncodable({
-      encode: Data_Tournament$Coronate.encode,
-      decode: Data_Tournament$Coronate.decode
+var Tournament = LocalForage_Id$RistSchach.MakeEncodable({
+      encode: Data_Tournament$RistSchach.encode,
+      decode: Data_Tournament$RistSchach.decode
     });
 
-var tournaments = LocalForage_Map$Coronate.make(func(undefined, undefined, "Coronate", undefined, "Tournaments", undefined, undefined), Tournament);
+var tournaments = LocalForage_Map$RistSchach.make(func(undefined, undefined, "RistSchach", undefined, "Tournaments", undefined, undefined), Tournament);
 
 function loadDemoDB(param) {
   
@@ -84,7 +84,7 @@ function configReducer(state, action) {
         var id = action._0;
         return {
                 avoidPairs: Belt_Set.keep(state.avoidPairs, (function (pair) {
-                        return !Data_Id$Coronate.Pair.has(pair, id);
+                        return !Data_Id$RistSchach.Pair.has(pair, id);
                       })),
                 byeValue: state.byeValue,
                 lastBackup: state.lastBackup
@@ -123,20 +123,20 @@ function useAllItemsFromDb(data) {
 }
 
 function useAllPlayers(param) {
-  return useAllItemsFromDb(TestData$Coronate.players);
+  return useAllItemsFromDb(TestData$RistSchach.players);
 }
 
 function useAllTournaments(param) {
-  return useAllItemsFromDb(TestData$Coronate.tournaments);
+  return useAllItemsFromDb(TestData$RistSchach.tournaments);
 }
 
 function useConfig(param) {
-  return React.useReducer(configReducer, TestData$Coronate.config);
+  return React.useReducer(configReducer, TestData$RistSchach.config);
 }
 
 function useAuth(param) {
   return [
-          Data_Auth$Coronate.$$default,
+          Data_Auth$RistSchach.$$default,
           (function (param) {
               
             })

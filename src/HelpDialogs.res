@@ -70,7 +70,7 @@ module SwissTournament = {
   let make = (~state, ~ariaLabel) =>
     <BaseDialog state ariaLabel>
       <p>
-        {`Coronate uses `->React.string}
+        {`RistSchach uses `->React.string}
         <a href="https://en.wikipedia.org/wiki/Swiss-system_tournament">
           {`Swiss-system tournaments `->React.string}
           <Icons.ExternalLink />

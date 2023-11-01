@@ -1,21 +1,26 @@
 {
-  "name": "coronate",
-  "description": "A free, easy-to-use Swiss chess tournament manager.",
+  "name": "RistSchach",
+  "description": "Ein kostenloser, bedienerfreundlicher Schachturnier-Manager.",
   "author": {
     "name": "John Jackson",
     "email": "jbpjackson+coronate@icloud.com",
     "url": "https://johnridesa.bike/"
   },
+  "contributors": [
+    {
+      "name": "Mats Fangohr",
+      "email": "matsfangohr@gmail.com"
+    }
+  ],
   "license": "MPL-2.0",
   "private": true,
-  "homepage": "https://coronate.netlify.app",
+  "homepage": "https://rist-schach.netlify.app",
   "repository": {
     "type": "git",
-    "url": "https://github.com/johnridesabike/coronate.git"
+    "url": "https://github.com/MatsFangohr/RistSchach.git"
   },
   "bugs": {
-    "url": "https://github.com/johnridesabike/coronate/issues",
-    "email": "jbpjackson+coronate@icloud.com"
+    "url": "https://github.com/MatsFangohr/RistSchach/issues"
   },
   "scripts": {
     "prebuild": "rescript",

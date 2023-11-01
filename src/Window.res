@@ -8,7 +8,7 @@
 open Belt
 open Router
 
-let global_title = "Coronate"
+let global_title = "RistSchach"
 
 let formatTitle = x =>
   switch x {
@@ -51,17 +51,11 @@ module About = {
       </div>
       <div style={ReactDOM.Style.make(~flex="0 0 48%", ())}>
         <h1 className="title" style={ReactDOM.Style.make(~textAlign="left", ())}>
-          {React.string("Coronate")}
+          {React.string("RistSchach")}
         </h1>
         <p> {React.string(`Last updated on ${gitModified}.`)} </p>
-        <p>
-          <a href=Utils.changelog_url>
-            {React.string("View the changelog for new features. ")}
-            <Icons.ExternalLink />
-          </a>
-        </p>
         <p> {`Copyright ${HtmlEntities.copy} John${HtmlEntities.nbsp}Jackson`->React.string} </p>
-        <p> {React.string("Coronate is free software.")} </p>
+        <p> {React.string("RistSchach is free software.")} </p>
         <p>
           <a href=Utils.github_url>
             {React.string("Source code is available ")}
@@ -107,7 +101,7 @@ module TitleBar = {
       </div>
       <button className=toolbarClasses onClick={_ => dispatch(SetDialog(true))}>
         <Icons.Help />
-        <Externals.VisuallyHidden> {React.string("About Coronate")} </Externals.VisuallyHidden>
+        <Externals.VisuallyHidden> {React.string("About RistSchach")} </Externals.VisuallyHidden>
       </button>
     </header>
 }
@@ -127,7 +121,7 @@ let make = (~children, ~className) => {
       isOpen=isDialogOpen
       onDismiss={() => dispatch(SetDialog(false))}
       className="win__about-dialog"
-      ariaLabel="About Coronate">
+      ariaLabel="About RistSchach">
       <button className="button-micro" onClick={_ => dispatch(SetDialog(false))}>
         {React.string("Close")}
       </button>

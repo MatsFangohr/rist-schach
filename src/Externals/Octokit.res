@@ -40,7 +40,7 @@ module Gist = {
       {
         "gist_id": id,
         "files": {
-          "coronate-data.json": {
+          "rist-schach-data.json": {
             "content": if minify {
               Js.Json.stringify(data)
             } else {
@@ -65,7 +65,7 @@ module Gist = {
       "POST /gists",
       {
         "files": {
-          "coronate-data.json": {
+          "rist-schach-data.json": {
             "content": if minify {
               Js.Json.stringify(data)
             } else {

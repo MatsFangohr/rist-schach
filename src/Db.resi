@@ -7,11 +7,11 @@
 */
 let loadDemoDB: unit => unit
 
-module Config: module type of LocalForage.Id.MakeEncodable(Coronate.Data.Config)
+module Config: module type of LocalForage.Id.MakeEncodable(RistSchach.Data.Config)
 
-module Tournament: module type of LocalForage.Id.MakeEncodable(Coronate.Data.Tournament)
+module Tournament: module type of LocalForage.Id.MakeEncodable(RistSchach.Data.Tournament)
 
-module Player: module type of LocalForage.Id.MakeEncodable(Coronate.Data.Player)
+module Player: module type of LocalForage.Id.MakeEncodable(RistSchach.Data.Player)
 
 let tournaments: LocalForage.Map.t<Data.Tournament.t, Tournament.identity>
 

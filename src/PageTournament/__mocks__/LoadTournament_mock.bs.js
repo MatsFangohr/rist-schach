@@ -5,10 +5,10 @@ import * as React from "react";
 import * as Belt_Map from "rescript/lib/es6/belt_Map.js";
 import * as Belt_Set from "rescript/lib/es6/belt_Set.js";
 import * as Pervasives from "rescript/lib/es6/pervasives.js";
-import * as Db$Coronate from "../../Db.bs.js";
-import * as TestData$Coronate from "../../testdata/TestData.bs.js";
-import * as Data_Player$Coronate from "../../Data/Data_Player.bs.js";
-import * as Data_Rounds$Coronate from "../../Data/Data_Rounds.bs.js";
+import * as Db$RistSchach from "../../Db.bs.js";
+import * as TestData$RistSchach from "../../testdata/TestData.bs.js";
+import * as Data_Player$RistSchach from "../../Data/Data_Player.bs.js";
+import * as Data_Rounds$RistSchach from "../../Data/Data_Rounds.bs.js";
 
 function log2(num) {
   return Math.log(num) / Math.log(2.0);
@@ -30,22 +30,22 @@ function tournamentReducer(param, action) {
 function LoadTournament_mock(Props) {
   var children = Props.children;
   var tourneyId = Props.tourneyId;
-  var match = React.useReducer(tournamentReducer, Belt_Map.getExn(TestData$Coronate.tournaments, tourneyId));
+  var match = React.useReducer(tournamentReducer, Belt_Map.getExn(TestData$RistSchach.tournaments, tourneyId));
   var tourney = match[0];
   var roundList = tourney.roundList;
   var playerIds = tourney.playerIds;
-  var match$1 = Db$Coronate.useAllPlayers(undefined);
+  var match$1 = Db$RistSchach.useAllPlayers(undefined);
   var players = match$1.items;
   var activePlayers = Belt_Map.keep(players, (function (id, param) {
           return Belt_Set.has(playerIds, id);
         }));
   var roundCount = calcNumOfRounds(Belt_Map.size(activePlayers));
-  var isItOver = Data_Rounds$Coronate.size(roundList) >= roundCount;
-  var isNewRoundReady = Data_Rounds$Coronate.size(roundList) === 0 ? true : Data_Rounds$Coronate.isRoundComplete(roundList, activePlayers, Data_Rounds$Coronate.size(roundList) - 1 | 0);
+  var isItOver = Data_Rounds$RistSchach.size(roundList) >= roundCount;
+  var isNewRoundReady = Data_Rounds$RistSchach.size(roundList) === 0 ? true : Data_Rounds$RistSchach.isRoundComplete(roundList, activePlayers, Data_Rounds$RistSchach.size(roundList) - 1 | 0);
   return Curry._1(children, {
               activePlayers: activePlayers,
               getPlayer: (function (param) {
-                  return Data_Player$Coronate.getMaybe(players, param);
+                  return Data_Player$RistSchach.getMaybe(players, param);
                 }),
               isItOver: isItOver,
               isNewRoundReady: isNewRoundReady,

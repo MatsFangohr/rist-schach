@@ -443,7 +443,7 @@ let make = (~windowDispatch=_ => ()) => {
       <h3> {"Backup locally"->React.string} </h3>
       <p>
         <a
-          download={"coronate-" ++ (getDateForFile() ++ ".json")}
+          download={"RistSchach-" ++ (getDateForFile() ++ ".json")}
           href={"data:application/json," ++ exportDataURI}
           onClick={_ => configDispatch(SetLastBackup(Js.Date.make()))}>
           <Icons.Download />

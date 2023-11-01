@@ -1,5 +1,5 @@
 {
-  "name": "coronate",
+  "name": "RistSchach",
   "reason": { "react-jsx": 3 },
   "sources": [
     { "dir": "src", "subdirs": true },

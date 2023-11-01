@@ -1,4 +1,4 @@
-/*
+/* 
   Copyright (c) 2022 John Jackson.
 
   This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,7 +6,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
-/*
+/* 
   The round structure is currently just nested arrays. Because arrays are
   awkward to manipulate, the functions are consolidated here. In the future,
   I may replace the arrays with a different data type, so hopefully it will be

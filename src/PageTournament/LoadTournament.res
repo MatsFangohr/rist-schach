@@ -1,4 +1,4 @@
-/*
+/* 
   Copyright (c) 2022 John Jackson.
 
   This Source Code Form is subject to the terms of the Mozilla Public
@@ -83,7 +83,7 @@ let make = (~children, ~tourneyId, ~windowDispatch=_ => ()) => {
     switch tourneyLoaded {
     | NotLoaded | Error => ()
     | Loaded =>
-      /*
+      /* 
        * If the tournament wasn't loaded then the id won't match. IDK why this
        * is necessary. If you remove this and someone enters the URL for a
        * nonexistant tournament, then you can corrupt the database.

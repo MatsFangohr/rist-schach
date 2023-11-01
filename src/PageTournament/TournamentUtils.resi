@@ -1,4 +1,4 @@
-/*
+/* 
   Copyright (c) 2022 John Jackson.
 
   This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,7 +6,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
-/*
+/* 
   I extracted this logic to its own module so it could be easily
   reused (e.g. in testing). It may have also made the whole component tree more
   complicated.

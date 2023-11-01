@@ -1,4 +1,4 @@
-/*
+/* 
   Copyright (c) 2022 John Jackson.
 
   This Source Code Form is subject to the terms of the Mozilla Public
@@ -10,7 +10,8 @@ type t = Jest.t<Dom.element>
 
 /**
   You must manually load jest-dom because it extends jest's features as a side-effect.
- */ @val
+ */
+@val
 external init: (@as("@testing-library/jest-dom") _, unit) => unit = "require"
 
 @send external toBeInTheDocument: t => unit = "toBeInTheDocument"

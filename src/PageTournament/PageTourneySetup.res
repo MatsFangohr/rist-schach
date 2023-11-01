@@ -1,4 +1,4 @@
-/*
+/* 
   Copyright (c) 2022 John Jackson.
 
   This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,7 @@ open Belt
 open Router
 open Data
 
-/*
+/* 
   Why are dates so complicated?
   Note to future self & other maintainers: getDate() begins at 1, and
   getMonth() begins at 0. An HTML date input requires that the month begins at

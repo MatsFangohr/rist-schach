@@ -1,4 +1,4 @@
-/*
+/* 
   Copyright (c) 2022 John Jackson.
 
   This Source Code Form is subject to the terms of the Mozilla Public
@@ -66,7 +66,7 @@ let useAllDb = store => {
   let (items, dispatch) = React.useReducer(genericDbReducer, Map.make(~id=Data.Id.id))
   let loaded = Hooks.useBool(false)
   Hooks.useLoadingCursorUntil(loaded.state)
-  /*
+  /* 
     Load items from the database.
  */
   React.useEffect0(() => {
@@ -92,7 +92,7 @@ let useAllDb = store => {
     ->ignore
     Some(() => didCancel := true)
   })
-  /*
+  /* 
     Save items to the database.
  */
   React.useEffect2(() => {

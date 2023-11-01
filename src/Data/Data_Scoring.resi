@@ -1,4 +1,4 @@
-/*
+/* 
   Copyright (c) 2022 John Jackson.
 
   This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,7 +6,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
-/*
+/* 
  This handles all of the score tiebreak logic. Not all of the USCF methods
  are implemented yet, just the most common ones.
  */

@@ -1,4 +1,4 @@
-/*
+/* 
   Copyright (c) 2022 John Jackson.
 
   This Source Code Form is subject to the terms of the Mozilla Public
@@ -39,7 +39,7 @@ let splitInHalf = arr => {
   (Array.slice(arr, ~offset=0, ~len=midpoint), Array.sliceToEnd(arr, midpoint))
 }
 
-/*
+/* 
  This determines what "half" each player is in: upper half or lower half.
  It also determines their "position" within each half.
  USCF § 29C1
@@ -66,19 +66,19 @@ let setUpperHalves = data => {
 }
 
 let priority = (~diffDueColor, ~isDiffHalf, ~halfPosDiff, ~scoreDiff, ~canMeet, ~maxScore) => {
-  /*
+  /* 
   The weight given to match players with opposite due colors.
   (USCF § 27A4 and § 27A5)
  */
   let colors = diffDueColor ? 2. : 0.
-  /*
+  /* 
    The weight given to match players in lower versus upper halves. This is only
    applied to players being matched within the same score group. (USCF § 27A3)
  */
   let halves = isDiffHalf ? 4. /. (halfPosDiff +. 1.) : 0.
   /* The weight given to match players with equal scores. (USCF § 27A2) */
   let scores = maxScore *. 16. -. scoreDiff *. 16.
-  /*
+  /* 
    The weight given to avoid players meeting twice. This same weight is given to
    avoid matching players on each other's "avoid" list.
    This is the highest priority. (USCF § 27A1)

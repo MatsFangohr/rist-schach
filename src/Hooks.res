@@ -1,4 +1,4 @@
-/*
+/* 
   Copyright (c) 2022 John Jackson.
 
   This Source Code Form is subject to the terms of the Mozilla Public
@@ -73,7 +73,7 @@ let useSortedTable = (~table, ~column, ~isDescending) => {
 module SortButton = {
   @react.component
   let make = (~children, ~sortColumn, ~data, ~dispatch) => {
-    /*
+    /* 
        These === comparisons *only* work if the `sortKey` values are definined
        outside a React component. If you try to define them inline, e.g.
        `<... sortKey=KeyString(nameGet)...>` then the comparisons will always

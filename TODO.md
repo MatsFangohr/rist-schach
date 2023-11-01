@@ -1,0 +1,6 @@
+- [ ] search for missing translations
+- [ ] remove ratings
+- [ ] create logo
+- [ ] add logo to header
+- [ ] add link to source to footer
+- [ ] replace images

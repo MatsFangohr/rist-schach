@@ -14,17 +14,19 @@ let make = (~tournament: LoadTournament.t) => {
   let lastRoundId = Rounds.getLastKey(tourney.roundList)
   let lastRound = Rounds.get(roundList, lastRoundId)
   <>
-    <h2 style={ReactDOM.Style.make(~textAlign="center", ())}>
-      {React.string("Tournament status")}
-    </h2>
+    <h2 style={ReactDOM.Style.make(~textAlign="center", ())}> {React.string("Turnierstatus")} </h2>
     <div className="content-area">
       <Utils.PanelContainer style={ReactDOM.Style.make(~justifyContent="center", ())}>
         <Utils.Panel>
           {switch lastRound {
-          | None => <p> {React.string("No rounds played yet.")} </p>
+          | None => <p> {React.string("Bisher wurden keine Runden gespielt.")} </p>
           | Some(matches) =>
             if Rounds.Round.size(matches) == 0 {
-              <p> {React.string("Matched players in the current round will be shown here.")} </p>
+              <p>
+                {React.string(
+                  "Gepaarten Spieler der aktuellen Runde werden hier angezeigt werden.",
+                )}
+              </p>
             } else {
               <PageRound.RoundTable
                 roundId=lastRoundId

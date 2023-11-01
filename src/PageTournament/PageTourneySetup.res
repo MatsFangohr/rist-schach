@@ -1,4 +1,4 @@
-/* 
+/*
   Copyright (c) 2022 John Jackson.
 
   This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,7 @@ open Belt
 open Router
 open Data
 
-/* 
+/*
   Why are dates so complicated?
   Note to future self & other maintainers: getDate() begins at 1, and
   getMonth() begins at 0. An HTML date input requires that the month begins at
@@ -61,7 +61,7 @@ let make = (~tournament: LoadTournament.t) => {
       ...tourney,
       roundList: roundList->Rounds.updateByeScores(bye),
     })
-    Webapi.Dom.Window.alert(Webapi.Dom.window, `Bye scores updated to ${s}.`)
+    Webapi.Dom.Window.alert(Webapi.Dom.window, `Bye-Wert ist jetzt ${s}.`)
   }
 
   let updateDate = event => {
@@ -114,7 +114,7 @@ let make = (~tournament: LoadTournament.t) => {
         {React.string(" ")}
         <button className="button-ghost" onClick={_ => setEditing(_ => Name)}>
           <Icons.Edit />
-          <Externals.VisuallyHidden> {React.string("Edit name")} </Externals.VisuallyHidden>
+          <Externals.VisuallyHidden> {React.string("Name bearbeiten")} </Externals.VisuallyHidden>
         </button>
       </h1>
     }}
@@ -140,29 +140,29 @@ let make = (~tournament: LoadTournament.t) => {
         {React.string(" ")}
         <button className="button-ghost" onClick={_ => setEditing(_ => Date)}>
           <Icons.Edit />
-          <Externals.VisuallyHidden> {React.string("Edit date")} </Externals.VisuallyHidden>
+          <Externals.VisuallyHidden> {React.string("Datum bearbeiten")} </Externals.VisuallyHidden>
         </button>
       </p>
     }}
-    <h2> {React.string("Change all bye scores")} </h2>
+    <h2> {React.string("Alle Bye-Werte ändern")} </h2>
     <button ariaDescribedby="score-desc" onClick={_ => changeByes(Full, "1")}>
-      {React.string("Change byes to 1")}
+      {React.string("Bye-Wert = 1")}
     </button>
     {React.string(" ")}
     <button ariaDescribedby="score-desc" onClick={_ => changeByes(Half, `½`)}>
-      {React.string("Change byes to ½")}
+      {React.string("Bye-Wert = ½")}
     </button>
     {React.string(" ")}
     <button ariaDescribedby="score-desc" onClick={_ => changeByes(Zero, "0")}>
-      {React.string("Change byes to 0")}
+      {React.string("Bye-Wert = 0")}
     </button>
     <p className="caption-30" id="score-desc">
-      {React.string("This will update ")}
-      <em> {React.string("all")} </em>
-      {React.string(" bye matches which have been previously scored in this
-      tournament, including ones that were added manually. To change the default
-      bye value in future matches, go to the ")}
-      <Link to_=Options> {React.string("app options")} </Link>
+      {React.string("Diese Knöpfe aktualisieren ")}
+      <em> {React.string("alle")} </em>
+      {React.string(" Byes, die in diesem Turnier ")}
+      <em> {React.string("bisher")} </em>
+      {React.string(" vergeben wurden, auch manuell hinzugefügte. Um den Wert von zukünftigen Byes zu verändern, gehe zu den ")}
+      <Link to_=Options> {React.string("RistSchach-Einstellungen")} </Link>
       {React.string(".")}
     </p>
   </div>

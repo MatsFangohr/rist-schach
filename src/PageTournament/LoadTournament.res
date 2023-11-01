@@ -117,9 +117,9 @@ let make = (~children, ~tourneyId, ~windowDispatch=_ => ()) => {
     })
   | (Error, _) =>
     <Window.Body windowDispatch>
-      {React.string("Error: tournament couldn't be loaded.")}
+      {React.string("Fehler: Turnier konnte nicht geladen werden.")}
     </Window.Body>
   | (NotLoaded, false) | (NotLoaded, true) | (Loaded, false) =>
-    <Window.Body windowDispatch> {React.string("Loading...")} </Window.Body>
+    <Window.Body windowDispatch> {React.string("Lädt...")} </Window.Body>
   }
 }

@@ -11,35 +11,7 @@ module Splash = {
   @react.component
   let make = () =>
     <div className="pages__container">
-      <aside className="pages__hint">
-        <ol>
-          <li className="pages__hint-item">
-            <button className="button-primary" onClick={_ => Db.loadDemoDB()}>
-              {React.string("Click here to load the demo data")}
-            </button>
-            {React.string(" (optional)")}
-          </li>
-          <li className="pages__hint-item">
-            <Icons.ArrowLeft />
-            {React.string(" Select a menu item.")}
-          </li>
-          <li className="pages__hint-item"> {React.string("Start creating your tournaments!")} </li>
-        </ol>
-        <Utils.Notification kind=Warning>
-          <div>
-            <p>
-              {React.string("RistSchach does not require an account.")}
-              <br />
-              {React.string("It saves your data locally in your browser.")}
-            </p>
-            <p>
-              {React.string("To manage your data, visit the ")}
-              <Router.Link to_=Options> {"Options"->React.string} </Router.Link>
-              {React.string(" page.")}
-            </p>
-          </div>
-        </Utils.Notification>
-      </aside>
+      <aside className="pages__hint" />
       <div className="pages__title">
         <div className="pages__title-icon">
           <img src=Utils.WebpackAssets.logo alt="" height="96" width="96" />
@@ -48,41 +20,20 @@ module Splash = {
           <h1 className="title" style={ReactDOM.Style.make(~fontSize="40px", ())}>
             {React.string("RistSchach")}
           </h1>
-          <p className={"pages__subtitle caption-30"}> {React.string("Tournament manager")} </p>
         </div>
       </div>
       <footer className={"pages__footer body-20"}>
-        <div className="pages__footer-left">
-          <p> {React.string("Do you enjoy using Coronate?")} </p>
-          <p>
-            <a href="https://www.buymeacoffee.com/johnridesabike" target="_blank">
-              <img
-                src=Utils.WebpackAssets.buyMeACoffee
-                alt="Buy Me A Coffee"
-                height="60"
-                width="217"
-                style={ReactDOM.Style.make(~height="60px ", ~width="217px ", ())}
-              />
-            </a>
-          </p>
-        </div>
+        <div className="pages__footer-left" />
         <div className="pages__footer-right">
-          <p> {React.string(`Copyright ${HtmlEntities.copy} John Jackson.`)} </p>
-          <p>
-            <a className="pages__footer-link" href=Utils.issues_url>
-              {React.string("Suggestions and bug reports are welcome.")}
-            </a>
-          </p>
-          <p> {React.string("RistSchach is free software.")} </p>
           <p>
             <a className="pages__footer-link" href=Utils.github_url>
-              {React.string("Source code is available")}
+              {React.string("Quellcode")}
             </a>
-            {React.string(" under the ")}
+            {React.string(" ist unter der ")}
             <a className="pages__footer-link" href=Utils.license_url>
               {React.string("Mozilla Public License 2.0")}
             </a>
-            {React.string(".")}
+            {React.string(" verfügbar.")}
           </p>
         </div>
       </footer>
@@ -117,7 +68,7 @@ module TimeCalculator = {
     dispatch(_ => safeValue)
   }
 
-  let title = "Time calculator"
+  let title = "Rundenrechner"
 
   @react.component
   let make = () => {
@@ -130,14 +81,14 @@ module TimeCalculator = {
     <div className="content-area">
       <h1> {title->React.string} </h1>
       <p className="caption-30">
-        {"Estimate the time requirements for planning your Swiss-system tournament."->React.string}
+        {"Bestimme optimale Rundenanzahl und Zeit pro Runde für dein Schachturnier."->React.string}
       </p>
       <form>
         <table style={ReactDOM.Style.make(~margin="0", ())}>
           <tbody>
             <tr>
               <td>
-                <label htmlFor="playerCount"> {React.string("Player count ")} </label>
+                <label htmlFor="playerCount"> {React.string("Spieleranzahl ")} </label>
               </td>
               <td>
                 <input
@@ -152,7 +103,7 @@ module TimeCalculator = {
             </tr>
             <tr>
               <td>
-                <label htmlFor="breakTime"> {React.string("Breaks between rounds ")} </label>
+                <label htmlFor="breakTime"> {React.string("Pausen zwischen Runden ")} </label>
               </td>
               <td>
                 <input
@@ -164,12 +115,12 @@ module TimeCalculator = {
                   min={Int.toString(minBreakTime)}
                   style={ReactDOM.Style.make(~width="40px", ())}
                 />
-                {React.string(" minutes")}
+                {React.string(" Minuten")}
               </td>
             </tr>
             <tr>
               <td>
-                <label htmlFor="totalTime"> {React.string("Total time available ")} </label>
+                <label htmlFor="totalTime"> {React.string("Gesamtzeit ")} </label>
               </td>
               <td>
                 <input
@@ -181,16 +132,16 @@ module TimeCalculator = {
                   min={Float.toString(minTotalTime)}
                   style={ReactDOM.Style.make(~width="40px", ())}
                 />
-                {React.string(" hours")}
+                {React.string(" Stunden")}
               </td>
             </tr>
           </tbody>
         </table>
       </form>
       <dl>
-        <dt className="title-20"> {React.string("Round count")} </dt>
+        <dt className="title-20"> {React.string("Optimale Rundenanzahl")} </dt>
         <dd> {players->Int.toFloat->log2->ceil->fixNumber->React.float} </dd>
-        <dt className="title-20"> {React.string("Maximum time control")} </dt>
+        <dt className="title-20"> {React.string("Zeit pro Spieler pro Runde")} </dt>
         <dd>
           <span className="title-20">
             {((totalTime *. 60.0 /. players->Int.toFloat->log2->ceil -.
@@ -198,7 +149,7 @@ module TimeCalculator = {
             ->ceil
             ->fixNumber
             ->React.float}
-            {React.string(" minutes")}
+            {React.string(" Minuten")}
           </span>
           <span className="caption-20">
             {React.string(" = ((")}
@@ -217,5 +168,5 @@ module TimeCalculator = {
 
 module NotFound = {
   @react.component
-  let make = () => <p className="content-area"> {React.string("Page not found.")} </p>
+  let make = () => <p className="content-area"> {React.string("Seite nicht gefunden.")} </p>
 }

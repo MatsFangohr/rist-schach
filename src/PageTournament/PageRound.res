@@ -31,21 +31,21 @@ module PlayerMatchInfo = {
     )
     <dl className="player-card">
       <h3> {player->Player.fullName->React.string} </h3>
-      <dt> {"Score"->React.string} </dt>
+      <dt> {"Punkte"->React.string} </dt>
       <dd> {score->React.float} </dd>
       <dt> {"Rating"->React.string} </dt>
       <Utils.TestId testId={"rating-" ++ player.id->Data.Id.toString}>
         <dd ariaLabel={"Rating for " ++ Player.fullName(player)}> rating </dd>
       </Utils.TestId>
-      <dt> {"Color balance"->React.string} </dt>
+      <dt> {"Farbbilanz"->React.string} </dt>
       <dd> {colorBalance->React.string} </dd>
-      <dt> {"Has had a bye round"->React.string} </dt>
-      <dd> {React.string(hasBye ? "Yes" : "No")} </dd>
-      <dt> {"Opponent history"->React.string} </dt>
+      <dt> {"Hat ein Bye erhalten"->React.string} </dt>
+      <dd> {React.string(hasBye ? "Ja" : "Nein")} </dd>
+      <dt> {"Alte Gegner"->React.string} </dt>
       <dd>
         <ol> opponentResults </ol>
       </dd>
-      <dt> {"Players to avoid:"->React.string} </dt>
+      <dt> {"Blacklist"->React.string} </dt>
       <dd>
         <ul> avoidListHtml </ul>
       </dd>
@@ -75,15 +75,21 @@ module MatchRow = {
 
     let resultDisplay = (playerColor: Scoring.Color.t) => {
       let won = <Icons.Award className="pageround__wonicon" />
-      let lost = <Externals.VisuallyHidden> {React.string("Lost")} </Externals.VisuallyHidden>
+      let lost = <Externals.VisuallyHidden> {React.string("Verloren")} </Externals.VisuallyHidden>
       let aborted =
-        <span ariaLabel="Draw" role="img" style={ReactDOM.Style.make(~filter="grayscale(60%)", ())}>
+        <span
+          ariaLabel="Unentschieden"
+          role="img"
+          style={ReactDOM.Style.make(~filter="grayscale(60%)", ())}>
           {React.string("❌")}
         </span>
       switch m.result {
-      | NotSet => <Externals.VisuallyHidden> {React.string("Not set")} </Externals.VisuallyHidden>
+      | NotSet => <Externals.VisuallyHidden> {React.string("unset")} </Externals.VisuallyHidden>
       | Draw =>
-        <span ariaLabel="Draw" role="img" style={ReactDOM.Style.make(~filter="grayscale(70%)", ())}>
+        <span
+          ariaLabel="Unentschieden"
+          role="img"
+          style={ReactDOM.Style.make(~filter="grayscale(70%)", ())}>
           {React.string("🤝")}
         </span>
       | BlackWon =>
@@ -201,16 +207,22 @@ module MatchRow = {
             value={Match.Result.toString(m.result)}
             onBlur=setMatchResultBlur
             onChange=setMatchResultChange>
-            <option value={Match.Result.toString(NotSet)}> {React.string("Select winner")} </option>
-            <option value={Match.Result.toString(WhiteWon)}> {React.string("White won")} </option>
-            <option value={Match.Result.toString(BlackWon)}> {React.string("Black won")} </option>
-            <option value={Match.Result.toString(Draw)}> {React.string("Draw")} </option>
-            <option value={Match.Result.toString(Aborted)}> {React.string("Aborted")} </option>
+            <option value={Match.Result.toString(NotSet)}>
+              {React.string("Sieger auswählen")}
+            </option>
+            <option value={Match.Result.toString(WhiteWon)}>
+              {React.string("Weiß gewinnt")}
+            </option>
+            <option value={Match.Result.toString(BlackWon)}>
+              {React.string("Schwarz gewinnt")}
+            </option>
+            <option value={Match.Result.toString(Draw)}> {React.string("Unentschieden")} </option>
+            <option value={Match.Result.toString(Aborted)}> {React.string("Abgebrochen")} </option>
             <option value={Match.Result.toString(WhiteAborted)}>
-              {React.string("White Aborted")}
+              {React.string("Weiß abgebrochen")}
             </option>
             <option value={Match.Result.toString(BlackAborted)}>
-              {React.string("Black Aborted")}
+              {React.string("Schwarz abgebrochen")}
             </option>
           </select>
         </Utils.TestId>
@@ -223,7 +235,7 @@ module MatchRow = {
           {if selectedMatch->Option.mapWithDefault(true, id => !Id.eq(id, m.id)) {
             <button
               className="button-ghost"
-              title="Edit match"
+              title="Spiel bearbeiten"
               onClick={_ => setSelectedMatch(_ => Some(m.id))}>
               <Icons.Circle />
               <Externals.VisuallyHidden>
@@ -235,20 +247,18 @@ module MatchRow = {
           } else {
             <button
               className="button-ghost button-pressed"
-              title="End editing match"
+              title="Bearbeitung beenden"
               onClick={_ => setSelectedMatch(_ => None)}>
               <Icons.CheckCircle />
             </button>
           }}
           <button
-            className="button-ghost"
-            title="Open match information."
-            onClick={_ => dialog.setTrue()}>
+            className="button-ghost" title="Spiel-Infos öffnen." onClick={_ => dialog.setTrue()}>
             <Icons.Info />
             <Externals.VisuallyHidden>
-              {`View information for match: ${Player.fullName(
-                  whitePlayer,
-                )} versus ${Player.fullName(blackPlayer)}`->React.string}
+              {`Informationen für: ${Player.fullName(whitePlayer)} versus ${Player.fullName(
+                  blackPlayer,
+                )}`->React.string}
             </Externals.VisuallyHidden>
           </button>
           {switch scoreData {
@@ -257,14 +267,14 @@ module MatchRow = {
             <Externals.Dialog
               isOpen=dialog.state
               onDismiss={_ => dialog.setFalse()}
-              ariaLabel="Match information"
+              ariaLabel="Spielinformationen"
               className="">
               <button className="button-micro button-primary" onClick={_ => dialog.setFalse()}>
-                {React.string("close")}
+                {React.string("Fertig")}
               </button>
               <p> {React.string(tourney.name)} </p>
               <p>
-                {`Round ${Int.toString(roundId + 1)} match ${Int.toString(pos + 1)}`->React.string}
+                {`Runde ${Int.toString(roundId + 1)} Spiel ${Int.toString(pos + 1)}`->React.string}
               </p>
               <Utils.PanelContainer>
                 <Utils.Panel>
@@ -316,7 +326,7 @@ module RoundTable = {
       } else {
         <>
           <caption className={isCompact ? "title-30" : "title-40"}>
-            {React.string("Round ")}
+            {React.string("Runde ")}
             {React.int(roundId + 1)}
           </caption>
           <thead>
@@ -324,22 +334,22 @@ module RoundTable = {
               <th className="pageround__row-id" scope="col"> {React.string("#")} </th>
               <th scope="col">
                 <Externals.VisuallyHidden>
-                  {React.string("White result")}
+                  {React.string("Ergebnis weiß")}
                 </Externals.VisuallyHidden>
               </th>
-              <th className="row__player" scope="col"> {React.string("White")} </th>
+              <th className="row__player" scope="col"> {React.string("Weiß")} </th>
               <th scope="col">
                 <Externals.VisuallyHidden>
-                  {React.string("Black result")}
+                  {React.string("Ergebnis schwarz")}
                 </Externals.VisuallyHidden>
               </th>
-              <th className="row__player" scope="col"> {React.string("Black")} </th>
-              <th className="row__result" scope="col"> {React.string("Match result")} </th>
+              <th className="row__player" scope="col"> {React.string("Schwarz")} </th>
+              <th className="row__result" scope="col"> {React.string("Ergebnis")} </th>
               {if isCompact {
                 React.null
               } else {
                 <th className="row__controls" scope="col">
-                  <Externals.VisuallyHidden> {React.string("Controls")} </Externals.VisuallyHidden>
+                  <Externals.VisuallyHidden> {React.string("Steuerung")} </Externals.VisuallyHidden>
                 </th>
               }}
             </tr>
@@ -427,7 +437,7 @@ module Round = {
             disabled={selectedMatch == None}
             onClick={_ => selectedMatch->Option.map(unMatch(_, matches))->ignore}>
             <Icons.Trash />
-            {React.string(" Unmatch")}
+            {React.string(" Entpaaren")}
           </button>
           {React.string(" ")}
           <button
@@ -435,7 +445,7 @@ module Round = {
             disabled={selectedMatch == None}
             onClick={_ => selectedMatch->Option.map(swapColors(_, matches))->ignore}>
             <Icons.Repeat />
-            {React.string(" Swap colors")}
+            {React.string(" Farben tauschen")}
           </button>
           {React.string(" ")}
           <button
@@ -443,7 +453,7 @@ module Round = {
             disabled={selectedMatch == None}
             onClick={_ => selectedMatch->Option.map(moveMatch(_, -1, matches))->ignore}>
             <Icons.ArrowUp />
-            {React.string(" Move up")}
+            {React.string(" Nach oben")}
           </button>
           {React.string(" ")}
           <button
@@ -451,11 +461,11 @@ module Round = {
             disabled={selectedMatch == None}
             onClick={_ => selectedMatch->Option.map(moveMatch(_, 1, matches))->ignore}>
             <Icons.ArrowDown />
-            {React.string(" Move down")}
+            {React.string(" Nach unten")}
           </button>
         </div>
         {if Rounds.Round.size(matches) == 0 {
-          <p> {React.string("No players matched yet.")} </p>
+          <p> {React.string("Bisher wurden keine Spieler zusammengepaart.")} </p>
         } else {
           React.null
         }}
@@ -497,11 +507,11 @@ let make = (~roundId, ~tournament) => {
     <TabList>
       <Tab disabled={unmatchedCount == activePlayersCount}>
         <Icons.List />
-        {React.string(" Matches")}
+        {React.string(" Spiele")}
       </Tab>
       <Tab disabled={unmatchedCount == 0}>
         <Icons.Users />
-        {` Unmatched players (${Int.toString(unmatchedCount)})`->React.string}
+        {` Ungepaarte Spieler (${Int.toString(unmatchedCount)})`->React.string}
       </Tab>
     </TabList>
     <TabPanels>

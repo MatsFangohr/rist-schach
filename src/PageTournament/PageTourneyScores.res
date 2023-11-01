@@ -30,9 +30,9 @@ module ScoreTable = {
       </caption>
       <thead>
         <tr className="pagescores__topheader">
-          <th className="title-10" scope="col"> {React.string("Rank")} </th>
+          <th className="title-10" scope="col"> {React.string("Rang")} </th>
           <th className="title-10" scope="col"> {React.string("Name")} </th>
-          <th className="title-10" scope="col"> {React.string("Score")} </th>
+          <th className="title-10" scope="col"> {React.string("Punkte")} </th>
           {switch size {
           | Compact => React.null
           | Expanded =>
@@ -156,30 +156,32 @@ module SelectTieBreaks = {
         <div className="toolbar">
           <button
             className="button-micro" disabled={selectedTb == None} onClick={_ => toggleTb(None)}>
-            {React.string("Remove")}
+            {React.string("Deaktivieren")}
           </button>
           <button className="button-micro" disabled={selectedTb == None} onClick={_ => moveTb(-1)}>
             <Icons.ArrowUp />
-            {React.string(" Move up")}
+            {React.string(" Nach oben")}
           </button>
           <button className="button-micro" disabled={selectedTb == None} onClick={_ => moveTb(1)}>
             <Icons.ArrowDown />
-            {React.string(" Move down")}
+            {React.string(" Nach unten")}
           </button>
           <button
             className={Cn.append("button-micro", "button-primary"->Cn.onSome(selectedTb))}
             disabled={selectedTb == None}
             onClick={_ => setSelectedTb(_ => None)}>
-            {React.string("Done")}
+            {React.string("Fertig")}
           </button>
         </div>
         <table>
-          <caption className="title-30"> {React.string("Selected tiebreak methods")} </caption>
+          <caption className="title-30">
+            {React.string("Ausgewählte Tiebreak-Strategien")}
+          </caption>
           <thead>
             <tr>
               <th> {React.string("Name")} </th>
               <th>
-                <Externals.VisuallyHidden> {React.string("Controls")} </Externals.VisuallyHidden>
+                <Externals.VisuallyHidden> {React.string("Steuerung")} </Externals.VisuallyHidden>
               </th>
             </tr>
           </thead>
@@ -205,8 +207,8 @@ module SelectTieBreaks = {
                       }}>
                     {React.string(
                       switch selectedTb {
-                      | None => "Edit"
-                      | Some(selectedTb) => selectedTb == tieBreak ? "Done" : "Edit"
+                      | None => "Bearbeiten"
+                      | Some(selectedTb) => selectedTb == tieBreak ? "Fertig" : "Fertig"
                       },
                     )}
                   </button>
@@ -224,7 +226,7 @@ module SelectTieBreaks = {
             <tr>
               <th> {React.string("Name")} </th>
               <th>
-                <Externals.VisuallyHidden> {React.string("Controls")} </Externals.VisuallyHidden>
+                <Externals.VisuallyHidden> {React.string("Steuerung")} </Externals.VisuallyHidden>
               </th>
             </tr>
           </thead>
@@ -267,16 +269,16 @@ let make = (~tournament: LoadTournament.t) => {
       <TabList>
         <Tab>
           <Icons.List />
-          {React.string(" Scores")}
+          {React.string(" Punktestand")}
         </Tab>
         <Tab>
           <Icons.Settings />
-          {React.string(" Edit tiebreak rules")}
+          {React.string(" Tiebreak-Strategien bearbeiten")}
         </Tab>
       </TabList>
       <TabPanels>
         <TabPanel>
-          <ScoreTable size=Expanded tourney getPlayer title="Score detail" />
+          <ScoreTable size=Expanded tourney getPlayer title="Punktestand" />
         </TabPanel>
         <TabPanel>
           <SelectTieBreaks tourney setTourney />
@@ -286,10 +288,10 @@ let make = (~tournament: LoadTournament.t) => {
     <div className="toolbar">
       <button onClick={_ => helpDialog.setTrue()}>
         <Icons.Help />
-        {React.string(" Tiebreak method information")}
+        {React.string(" Tiebreak-Strategien")}
       </button>
     </div>
-    <HelpDialogs.TieBreaks state=helpDialog ariaLabel="Tiebreak method information" />
+    <HelpDialogs.TieBreaks state=helpDialog ariaLabel="Tiebreak-Strategien" />
   </div>
 }
 
@@ -345,7 +347,7 @@ module Crosstable = {
             <th key={Int.toString(rank)}> {React.int(rank + 1)} </th>
           )
           ->React.array}
-          <th> {React.string("Score")} </th>
+          <th> {React.string("Punkte")} </th>
           <th colSpan=2> {React.string("Rating")} </th>
         </tr>
       </thead>

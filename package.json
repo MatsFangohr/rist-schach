@@ -17,10 +17,10 @@
   "homepage": "https://rist-schach.netlify.app",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MatsFangohr/RistSchach.git"
+    "url": "https://github.com/MatsFangohr/rist-schach.git"
   },
   "bugs": {
-    "url": "https://github.com/MatsFangohr/RistSchach/issues"
+    "url": "https://github.com/MatsFangohr/rist-schach/issues"
   },
   "scripts": {
     "prebuild": "rescript",

@@ -36,22 +36,22 @@ module Form = {
   module Validate = {
     let firstName = firstName =>
       switch firstName {
-      | "" => Error("First name is required")
+      | "" => Error("Vorname fehlt!")
       | name => Ok(name)
       }
     let lastName = lastName =>
       switch lastName {
-      | "" => Error("Last name is required")
+      | "" => Error("Nachname fehlt!")
       | name => Ok(name)
       }
     let rating = rating =>
       switch Int.fromString(rating) {
-      | None => Error("Rating must be a number")
+      | None => Error("Rating muss eine Zahl sein!")
       | Some(rating) => Ok(rating)
       }
     let matchCount = matchCount =>
       switch Int.fromString(matchCount) {
-      | None => Error("Match count must be a number")
+      | None => Error("Anzahl gespielter Spiele muss eine Zahl sein!")
       | Some(i) => Ok(Player.NatInt.fromInt(i))
       }
   }
@@ -288,9 +288,9 @@ module NewPlayerForm = {
         })
       }}>
       <fieldset>
-        <legend> {React.string("Register a new player")} </legend>
+        <legend> {React.string("Füge einen Spieler hinzu")} </legend>
         <p>
-          <label htmlFor="firstName"> {React.string("First name")} </label>
+          <label htmlFor="firstName"> {React.string("Vorname")} </label>
           <input
             name="firstName"
             type_="text"
@@ -302,7 +302,7 @@ module NewPlayerForm = {
         </p>
         {errorNotification(Form.firstNameResult(form))}
         <p>
-          <label htmlFor="lastName"> {React.string("Last name")} </label>
+          <label htmlFor="lastName"> {React.string("Nachname")} </label>
           <input
             name="lastName"
             type_="text"
@@ -348,7 +348,7 @@ module PlayerList = {
   ) => {
     let dialog = Hooks.useBool(false)
     React.useEffect1(() => {
-      windowDispatch(Window.SetTitle("Players"))
+      windowDispatch(Window.SetTitle("Spieler"))
       Some(() => windowDispatch(SetTitle("")))
     }, [windowDispatch])
     let delPlayer = (event, id) => {
@@ -357,7 +357,7 @@ module PlayerList = {
       switch playerOpt {
       | None => ()
       | Some(player) =>
-        let message = `Are you sure you want to delete ${Player.fullName(player)}?`
+        let message = `Bist du dir sicher, dass du ${Player.fullName(player)} löschen möchtest?`
         if Webapi.Dom.Window.confirm(Webapi.Dom.window, message) {
           playersDispatch(Db.Del(id))
           configDispatch(Db.DelAvoidSingle(id))
@@ -368,11 +368,11 @@ module PlayerList = {
       <div className="toolbar toolbar__left">
         <button onClick={_ => dialog.setTrue()}>
           <Icons.UserPlus />
-          {React.string(" Add a new player")}
+          {React.string(" Spieler hinzufügen")}
         </button>
       </div>
       <table style={ReactDOM.Style.make(~margin="auto", ())}>
-        <caption> {React.string("Player roster")} </caption>
+        <caption> {React.string("Spielerliste")} </caption>
         <thead>
           <tr>
             <th>
@@ -387,11 +387,11 @@ module PlayerList = {
             </th>
             <th>
               <Hooks.SortButton data=sorted dispatch=sortDispatch sortColumn=sortMatchCount>
-                {React.string("Matches")}
+                {React.string("Spiele")}
               </Hooks.SortButton>
             </th>
             <th>
-              <Externals.VisuallyHidden> {React.string("Controls")} </Externals.VisuallyHidden>
+              <Externals.VisuallyHidden> {React.string("Steuerung")} </Externals.VisuallyHidden>
             </th>
           </tr>
         </thead>
@@ -407,7 +407,7 @@ module PlayerList = {
                 <button className="danger button-ghost" onClick={event => delPlayer(event, p.id)}>
                   <Icons.Trash />
                   <Externals.VisuallyHidden>
-                    {React.string(`Delete ${Player.fullName(p)}`)}
+                    {React.string(`Lösche ${Player.fullName(p)}`)}
                   </Externals.VisuallyHidden>
                 </button>
               </td>
@@ -421,7 +421,7 @@ module PlayerList = {
         ariaLabel="New player form"
         className="">
         <button className="button-micro" onClick={_ => dialog.setFalse()}>
-          {React.string("Close")}
+          {React.string("Fertig")}
         </button>
         <NewPlayerForm dispatch=playersDispatch />
       </Externals.Dialog>
@@ -478,32 +478,31 @@ module PlayerStats = {
       <table style={ReactDOM.Style.make(~margin="0", ())}>
         <thead>
           <tr>
-            <th> {"Stat"->React.string} </th>
-            <th> {"Count"->React.string} </th>
-            <th> {"Ratio"->React.string} </th>
+            <th> {"Ergebnis"->React.string} </th>
+            <th> {"Menge"->React.string} </th>
+            <th> {"Anteil"->React.string} </th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row"> {"Won"->React.string} </th>
+            <th scope="row"> {"Gewonnen"->React.string} </th>
             <td className="table__number"> {wins->React.int} </td>
             <td className="table__number"> {percent(wins, total)->React.string} </td>
           </tr>
           <tr>
-            <th scope="row"> {"Lost"->React.string} </th>
+            <th scope="row"> {"Verloren"->React.string} </th>
             <td className="table__number"> {losses->React.int} </td>
             <td className="table__number"> {percent(losses, total)->React.string} </td>
           </tr>
           <tr>
-            <th scope="row"> {"Drew"->React.string} </th>
+            <th scope="row"> {"Unentschieden"->React.string} </th>
             <td className="table__number"> {draws->React.int} </td>
             <td className="table__number"> {percent(draws, total)->React.string} </td>
           </tr>
         </tbody>
       </table>
       <p className="caption-20">
-        {`These statistics are generated from current tournament data. Their total may differ from
-          the "matches played" number above.`->React.string}
+        {`Diese Statistiken werden aus den Turniersdaten berechnet und stimmen nicht zwingend mit der Menge der gespielten Spiele überein.`->React.string}
       </p>
     </div>
   }
@@ -550,7 +549,7 @@ module AvoidForm = {
     }
     <>
       {if Set.isEmpty(singAvoidList) {
-        <p> {React.string("None")} </p>
+        <p> {React.string("Keine")} </p>
       } else {
         <ul>
           {singAvoidList
@@ -562,8 +561,8 @@ module AvoidForm = {
             <li key={p.id->Data.Id.toString}>
               {fullName->React.string}
               <button
-                ariaLabel={`Remove ${fullName} from avoid list.`}
-                title={`Remove ${fullName} from avoid list.`}
+                ariaLabel={`Entferne ${fullName} von der Blacklist.`}
+                title={`Entferne ${fullName} von der Blacklist.`}
                 className="danger button-ghost"
                 onClick={_ =>
                   switch Id.Pair.make(playerId, p.id) {
@@ -578,7 +577,9 @@ module AvoidForm = {
         </ul>
       }}
       <form onSubmit=avoidAdd>
-        <label htmlFor="avoid-select"> {React.string("Select a new player to avoid.")} </label>
+        <label htmlFor="avoid-select">
+          {React.string("Wähle einen Spieler aus, der nicht gegen diesen Spieler spielen soll.")}
+        </label>
         {switch selectedAvoider {
         | Some(selectedAvoider) =>
           <>
@@ -597,7 +598,7 @@ module AvoidForm = {
             {React.string(" ")}
             <input className="button-micro" type_="submit" value="Add" />
           </>
-        | None => React.string("No players are available to avoid.")
+        | None => React.string("Keine Spieler sind verfügbar.")
         }}
       </form>
     </>
@@ -624,20 +625,23 @@ module Profile = {
     let input = Form.input(form)
     let playerName = input.firstName ++ " " ++ input.lastName
     React.useEffect2(() => {
-      windowDispatch(Window.SetTitle("Profile for " ++ playerName))
+      windowDispatch(Window.SetTitle("Profil von " ++ playerName))
       Some(() => windowDispatch(SetTitle("")))
     }, (windowDispatch, playerName))
     <div className="content-area">
       <Link
         to_=PlayerList
         onClick={event =>
-          if Form.dirty(form) && !Webapi.Dom.Window.confirm(Webapi.Dom.window, "Discard changes?") {
+          if (
+            Form.dirty(form) &&
+            !Webapi.Dom.Window.confirm(Webapi.Dom.window, "Änderungen verwerfen?")
+          ) {
             ReactEvent.Mouse.preventDefault(event)
           }}>
         <Icons.ChevronLeft />
         {React.string(" Back")}
       </Link>
-      <h2> {React.string("Profile for " ++ playerName)} </h2>
+      <h2> {React.string("Profil von " ++ playerName)} </h2>
       <form
         onSubmit={event => {
           ReactEvent.Form.preventDefault(event)
@@ -651,7 +655,7 @@ module Profile = {
           )
         }}>
         <p>
-          <label htmlFor="firstName"> {React.string("First name")} </label>
+          <label htmlFor="firstName"> {React.string("Vorname")} </label>
           <input
             value=input.firstName
             onBlur={_ => Form.blurFirstName(form)}
@@ -662,7 +666,7 @@ module Profile = {
         </p>
         {errorNotification(Form.firstNameResult(form))}
         <p>
-          <label htmlFor="lastName"> {React.string("Last name")} </label>
+          <label htmlFor="lastName"> {React.string("Nachname")} </label>
           <input
             value=input.lastName
             onBlur={_ => Form.blurLastName(form)}
@@ -673,7 +677,7 @@ module Profile = {
         </p>
         {errorNotification(Form.lastNameResult(form))}
         <p>
-          <label htmlFor="matchCount"> {React.string("Matches played")} </label>
+          <label htmlFor="matchCount"> {React.string("Gespielte Spiele")} </label>
           <input
             value=input.matchCount
             onBlur={_ => Form.blurMatchCount(form)}
@@ -701,14 +705,14 @@ module Profile = {
           </button>
         </p>
       </form>
-      <h3> {React.string("Players to avoid")} </h3>
+      <h3> {React.string("Blacklist")} </h3>
       <AvoidForm playerId players config configDispatch />
       <hr />
-      <h3> {React.string("Statistics")} </h3>
+      <h3> {React.string("Statistiken")} </h3>
       <PlayerStats playerId />
       <hr />
       <details>
-        <summary> {"Additional information"->React.string} </summary>
+        <summary> {"Zusätzliche Informationen"->React.string} </summary>
         <dl>
           <dt> {React.string("K-factor")} </dt>
           <dd className="monospace">
@@ -722,8 +726,7 @@ module Profile = {
           </dd>
         </dl>
         <p className="caption-20">
-          {`K-factor is 40 for players who have played fewer than 30 matches, 20 for players with
-            a rating below 2100, and 10 for players with a rating above 2100.`->React.string}
+          {`Der K-factor ist 40 für Spieler, die weniger als 30 Spiele gespielt haben, 20 für Spieler mit einem Rating kleiner als 2100 und 10 für Spieler mit einem Rating von mehr als 2100.`->React.string}
         </p>
       </details>
     </div>
@@ -749,7 +752,7 @@ let make = (~id=?, ~windowDispatch) => {
       <PlayerList sorted sortDispatch players playersDispatch configDispatch windowDispatch />
     | Some(id) =>
       switch Map.get(players, id) {
-      | None => <div> {React.string("Loading...")} </div>
+      | None => <div> {React.string("Lädt...")} </div>
       | Some(player) =>
         <Profile player players playersDispatch config configDispatch windowDispatch />
       }

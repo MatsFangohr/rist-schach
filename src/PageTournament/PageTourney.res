@@ -16,20 +16,20 @@ module Footer = {
     let {roundCount, tourney, isItOver, isNewRoundReady, activePlayers, _} = tournament
     let {roundList, _} = tourney
     let (tooltipText, tooltipKind: Utils.Notification.t) = switch (isNewRoundReady, isItOver) {
-    | (true, false) => (HtmlEntities.nbsp ++ " Ready to begin a new round.", Success)
-    | (false, false) | (false, true) => (HtmlEntities.nbsp ++ "Round in progress.", Generic)
-    | (true, true) => (HtmlEntities.nbsp ++ " All rounds have completed.", Warning)
+    | (true, false) => (HtmlEntities.nbsp ++ " Bereit, eine neue Runde zu beginnen.  ", Success)
+    | (false, false) | (false, true) => (HtmlEntities.nbsp ++ "Runde läuft.  ", Generic)
+    | (true, true) => (HtmlEntities.nbsp ++ " Alle Runden sind abgeschlossen.  ", Warning)
     }
     <>
       <div className="win__footer-block">
-        {React.string("Rounds: ")}
+        {React.string("Runde ")}
         {roundList->Rounds.size->React.int}
-        <small> {React.string(" out of ")} </small>
+        <small> {React.string(" von ")} </small>
         {roundCount->React.int}
       </div>
       <hr className="win__footer-divider" />
       <div className="win__footer-block">
-        {React.string("Registered players: ")}
+        {React.string("Spieler: ")}
         {activePlayers->Map.size->React.int}
       </div>
       <hr className="win__footer-divider" />
@@ -47,6 +47,22 @@ module Footer = {
         )}>
         {React.string(tooltipText)}
       </Utils.Notification>
+      <div
+        className="win__footer-block"
+        style={ReactDOM.Style.make(~position="absolute", ~right="0", ())}>
+        <p>
+          <a href=Utils.github_url>
+            {React.string("Quellcode ")}
+            <Icons.ExternalLink />
+          </a>
+          {React.string(" ist unter der ")}
+          <a href=Utils.license_url>
+            {React.string("Mozilla Public License 2.0 ")}
+            <Icons.ExternalLink />
+          </a>
+          {React.string(" verfügbar.")}
+        </p>
+      </div>
     </>
   }
 }
@@ -72,7 +88,7 @@ module Sidebar = {
     let isRoundComplete = Rounds.isRoundComplete(roundList, activePlayers)
     let newRound = event => {
       ReactEvent.Mouse.preventDefault(event)
-      let confirmText = "All rounds have completed. Are you sure you want to begin a new " ++ "one?"
+      let confirmText = "Alle Runden sind abgeschlossen. Bist du sicher, dass du eine Neue beginnen möchtest?"
       let confirmed = if isItOver {
         if Webapi.Dom.Window.confirm(Webapi.Dom.window, confirmText) {
           true
@@ -89,7 +105,7 @@ module Sidebar = {
 
     let delLastRound = event => {
       ReactEvent.Mouse.preventDefault(event)
-      let message = "Are you sure you want to delete the last round?"
+      let message = "Bist du dir sicher, dass du die letzte Runde löschen möchtest?"
       if Webapi.Dom.Window.confirm(Webapi.Dom.window, message) {
         RescriptReactRouter.push("#/tourneys/" ++ tourney.id->Data.Id.toString)
         /* If a match has been scored, then reset it.
@@ -136,7 +152,7 @@ module Sidebar = {
               onDragStart=noDraggy
               onClick={_ => windowDispatch(Window.SetSidebar(false))}>
               <Icons.ChevronLeft />
-              <span className="sidebar__hide-on-close"> {React.string(" Back")} </span>
+              <span className="sidebar__hide-on-close"> {React.string(" Zurück")} </span>
             </Link>
           </li>
         </ul>
@@ -157,7 +173,7 @@ module Sidebar = {
               onDragStart=noDraggy
               onClick={_ => windowDispatch(Window.SetSidebar(false))}>
               <Icons.Users />
-              <span className="sidebar__hide-on-close"> {React.string(" Players")} </span>
+              <span className="sidebar__hide-on-close"> {React.string(" Spieler")} </span>
             </Link>
           </li>
           <li>
@@ -184,12 +200,12 @@ module Sidebar = {
               onDragStart=noDraggy
               onClick={_ => windowDispatch(Window.SetSidebar(false))}>
               <Icons.List />
-              <span className="sidebar__hide-on-close"> {React.string(" Score detail")} </span>
+              <span className="sidebar__hide-on-close"> {React.string(" Punktestand")} </span>
             </Link>
           </li>
         </ul>
         <hr />
-        <h5 className="sidebar__hide-on-close sidebar__header"> {React.string("Rounds")} </h5>
+        <h5 className="sidebar__hide-on-close sidebar__header"> {React.string("Runden")} </h5>
         <ul className="center-on-close">
           {roundList
           ->Rounds.toArray
@@ -202,12 +218,12 @@ module Sidebar = {
                 {React.int(id + 1)}
                 {if isRoundComplete(id) {
                   <span className={"sidebar__hide-on-close caption-20"}>
-                    {React.string(" Complete ")}
+                    {React.string(" Abgeschlossen ")}
                     <Icons.Check />
                   </span>
                 } else {
                   <span className={"sidebar__hide-on-close caption-20"}>
-                    {React.string(" Not complete ")}
+                    {React.string(" Steht aus ")}
                     <Icons.Alert />
                   </span>
                 }}
@@ -226,7 +242,7 @@ module Sidebar = {
             onClick=newRound
             style={ReactDOM.Style.make(~width="100%", ())}>
             <Icons.Plus />
-            <span className="sidebar__hide-on-close"> {React.string(" New round")} </span>
+            <span className="sidebar__hide-on-close"> {React.string(" Neue Runde")} </span>
           </button>
         </li>
         <li style={ReactDOM.Style.make(~textAlign="center", ())}>
@@ -236,7 +252,9 @@ module Sidebar = {
             className="button-micro sidebar-button"
             style={ReactDOM.Style.make(~marginTop="8px", ())}>
             <Icons.Trash />
-            <span className="sidebar__hide-on-close"> {React.string(" Remove last round")} </span>
+            <span className="sidebar__hide-on-close">
+              {React.string(" Letzte Runde entfernen")}
+            </span>
           </button>
         </li>
       </ul>

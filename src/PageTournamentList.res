@@ -25,7 +25,7 @@ let make = (~windowDispatch=_ => ()) => {
   let newTourneyDialog = Hooks.useBool(false)
   let helpDialog = Hooks.useBool(false)
   React.useEffect1(() => {
-    windowDispatch(Window.SetTitle("Tournament list"))
+    windowDispatch(Window.SetTitle("Turnierliste"))
     Some(() => windowDispatch(Window.SetTitle("")))
   }, [windowDispatch])
   React.useEffect2(() => {
@@ -42,7 +42,7 @@ let make = (~windowDispatch=_ => ()) => {
     newTourneyDialog.setFalse()
   }
   let deleteTournament = (id, name) => {
-    let message = `Are you sure you want to delete “${name}”?`
+    let message = `Bist du dir sicher, dass du “${name}” löschen möchtest?`
     if Webapi.Dom.Window.confirm(Webapi.Dom.window, message) {
       dispatch(Del(id))
     }
@@ -52,21 +52,21 @@ let make = (~windowDispatch=_ => ()) => {
       <div className="toolbar">
         <button onClick={_ => newTourneyDialog.setTrue()}>
           <Icons.Plus />
-          {React.string(" Add tournament")}
+          {React.string(" Turnier hinzufügen")}
         </button>
         <button className="button-ghost" onClick={_ => helpDialog.setTrue()}>
           <Icons.Help />
           <Externals.VisuallyHidden>
-            {React.string(" Tournament information")}
+            {React.string(" Turnierinformationen")}
           </Externals.VisuallyHidden>
         </button>
       </div>
-      <HelpDialogs.SwissTournament state=helpDialog ariaLabel="Tournament information" />
+      <HelpDialogs.SwissTournament state=helpDialog ariaLabel="Turnierinformationen" />
       {if Map.isEmpty(tourneys) {
-        <p> {React.string("No tournaments are added yet.")} </p>
+        <p> {React.string("Es gibt noch keine Turniere.")} </p>
       } else {
         <table>
-          <caption> {React.string("Tournament list")} </caption>
+          <caption> {React.string("Turnierliste")} </caption>
           <thead>
             <tr>
               <th>
@@ -76,11 +76,11 @@ let make = (~windowDispatch=_ => ()) => {
               </th>
               <th>
                 <Hooks.SortButton data=sorted dispatch=sortDispatch sortColumn=dateSort>
-                  {React.string("Date")}
+                  {React.string("Datum")}
                 </Hooks.SortButton>
               </th>
               <th>
-                <Externals.VisuallyHidden> {React.string("Controls")} </Externals.VisuallyHidden>
+                <Externals.VisuallyHidden> {React.string("Löschen")} </Externals.VisuallyHidden>
               </th>
             </tr>
           </thead>
@@ -97,7 +97,7 @@ let make = (~windowDispatch=_ => ()) => {
                   <button
                     ariaLabel={`Delete “${name}”`}
                     className="danger button-ghost"
-                    title={"Delete " ++ name}
+                    title={"Lösche " ++ name}
                     onClick={_ => deleteTournament(id, name)}>
                     <Icons.Trash />
                   </button>
@@ -110,20 +110,20 @@ let make = (~windowDispatch=_ => ()) => {
       <Externals.Dialog
         isOpen=newTourneyDialog.state
         onDismiss=newTourneyDialog.setFalse
-        ariaLabel="Create new tournament"
+        ariaLabel="Neues Turnier erstellen"
         className="">
         <button className="button-micro" onClick={_ => newTourneyDialog.setFalse()}>
-          {React.string("Close")}
+          {React.string("Fertig")}
         </button>
         <form onSubmit=makeTournament>
           <fieldset>
-            <legend> {React.string("Make a new tournament")} </legend>
+            <legend> {React.string("Neues Turnier hinzufügen")} </legend>
             <p>
               <label htmlFor="tourney-name"> {React.string("Name:")} </label>
               <input
                 id="tourney-name"
                 name="tourney-name"
-                placeholder="tournament name"
+                placeholder="turniername"
                 required=true
                 type_="text"
                 value=newTourneyName
@@ -131,7 +131,7 @@ let make = (~windowDispatch=_ => ()) => {
               />
             </p>
             <p>
-              <input className="button-primary" type_="submit" value="Create" />
+              <input className="button-primary" type_="submit" value="Hinzufügen" />
             </p>
           </fieldset>
         </form>

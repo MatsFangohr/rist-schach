@@ -53,20 +53,18 @@ module About = {
         <h1 className="title" style={ReactDOM.Style.make(~textAlign="left", ())}>
           {React.string("RistSchach")}
         </h1>
-        <p> {React.string(`Last updated on ${gitModified}.`)} </p>
-        <p> {`Copyright ${HtmlEntities.copy} John${HtmlEntities.nbsp}Jackson`->React.string} </p>
-        <p> {React.string("RistSchach is free software.")} </p>
+        <p> {React.string(`Zuletzt geupdatet am ${gitModified}.`)} </p>
         <p>
           <a href=Utils.github_url>
-            {React.string("Source code is available ")}
+            {React.string("Quellcode ")}
             <Icons.ExternalLink />
           </a>
-          {React.string(" under the ")}
+          {React.string(" ist unter der ")}
           <a href=Utils.license_url>
             {React.string("Mozilla Public License 2.0 ")}
             <Icons.ExternalLink />
           </a>
-          {React.string(".")}
+          {React.string(" verfügbar.")}
         </p>
       </div>
     </article>
@@ -121,9 +119,9 @@ let make = (~children, ~className) => {
       isOpen=isDialogOpen
       onDismiss={() => dispatch(SetDialog(false))}
       className="win__about-dialog"
-      ariaLabel="About RistSchach">
+      ariaLabel="Über RistSchach">
       <button className="button-micro" onClick={_ => dispatch(SetDialog(false))}>
-        {React.string("Close")}
+        {React.string("Fertig")}
       </button>
       <About />
     </Externals.Dialog>
@@ -141,7 +139,7 @@ module DefaultSidebar = {
           <Link to_=Index onDragStart=noDraggy onClick={_ => dispatch(SetSidebar(false))}>
             <Icons.Home />
             <span className="sidebar__hide-on-close">
-              {React.string(HtmlEntities.nbsp ++ "Home")}
+              {React.string(HtmlEntities.nbsp ++ "Startseite")}
             </span>
           </Link>
         </li>
@@ -149,7 +147,7 @@ module DefaultSidebar = {
           <Link to_=TournamentList onDragStart=noDraggy onClick={_ => dispatch(SetSidebar(false))}>
             <Icons.Award />
             <span className="sidebar__hide-on-close">
-              {React.string(HtmlEntities.nbsp ++ "Tournaments")}
+              {React.string(HtmlEntities.nbsp ++ "Turniere")}
             </span>
           </Link>
         </li>
@@ -157,15 +155,7 @@ module DefaultSidebar = {
           <Link to_=PlayerList onDragStart=noDraggy onClick={_ => dispatch(SetSidebar(false))}>
             <Icons.Users />
             <span className="sidebar__hide-on-close">
-              {React.string(HtmlEntities.nbsp ++ "Players")}
-            </span>
-          </Link>
-        </li>
-        <li>
-          <Link to_=Options onDragStart=noDraggy onClick={_ => dispatch(SetSidebar(false))}>
-            <Icons.Settings />
-            <span className="sidebar__hide-on-close">
-              {React.string(HtmlEntities.nbsp ++ "Options")}
+              {React.string(HtmlEntities.nbsp ++ "Spieler")}
             </span>
           </Link>
         </li>
@@ -173,7 +163,15 @@ module DefaultSidebar = {
           <Link to_=TimeCalculator onDragStart=noDraggy onClick={_ => dispatch(SetSidebar(false))}>
             <Icons.Clock />
             <span className="sidebar__hide-on-close">
-              {React.string(HtmlEntities.nbsp ++ "Time calculator")}
+              {React.string(HtmlEntities.nbsp ++ "Rundenrechner")}
+            </span>
+          </Link>
+        </li>
+        <li>
+          <Link to_=Options onDragStart=noDraggy onClick={_ => dispatch(SetSidebar(false))}>
+            <Icons.Settings />
+            <span className="sidebar__hide-on-close">
+              {React.string(HtmlEntities.nbsp ++ "Einstellungen")}
             </span>
           </Link>
         </li>

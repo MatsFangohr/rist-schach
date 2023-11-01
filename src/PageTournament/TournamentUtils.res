@@ -67,9 +67,9 @@ let getScoreInfo = (
   }
   let hasBye = List.some(opponentResults, ((id, _)) => Data.Id.isDummy(id))
   let colorBalance = switch Data.Scoring.Score.sum(colorScores)->Data.Scoring.Score.Sum.toFloat {
-  | x if x < 0.0 => "White +" ++ x->abs_float->Float.toString
-  | x if x > 0.0 => "Black +" ++ x->Float.toString
-  | _ => "Even"
+  | x if x < 0.0 => "Weiß +" ++ x->abs_float->Float.toString
+  | x if x > 0.0 => "Scharz +" ++ x->Float.toString
+  | _ => "Neutral"
   }
 
   let opponentResults =
@@ -82,9 +82,9 @@ let getScoreInfo = (
         {React.string(
           switch result {
           | Zero
-          | NegOne /* Shouldn't be used here */ => "Lost"
-          | One => "Won"
-          | Half => "Draw"
+          | NegOne /* Shouldn't be used here */ => "Verloren"
+          | One => "Gewonnen"
+          | Half => "Unentschieden"
           },
         )}
       </li>

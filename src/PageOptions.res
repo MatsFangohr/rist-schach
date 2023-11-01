@@ -22,7 +22,7 @@ let getDateForFile = () => {
 let invalidAlert = () =>
   Webapi.Dom.Window.alert(
     Webapi.Dom.window,
-    "That data is invalid! A more helpful error message could not be written yet.",
+    "Diese Daten sind nicht gültig! Eine sinnvollere Fehlermeldung konnte noch nicht geschrieben werden.",
   )
 
 let dictToMap = dict => dict->Js.Dict.entries->Data.Id.Map.fromStringArray
@@ -65,7 +65,7 @@ module LastBackupDate = {
   @react.component
   let make = (~date) =>
     if Js.Date.getTime(date) == 0.0 {
-      React.string("Never")
+      React.string("Nie")
     } else {
       <Utils.DateTimeFormat date />
     }
@@ -94,7 +94,7 @@ module GistOpts = {
   | None => Js.Obj.empty()
   }
 
-  let savedAlert = () => Webapi.Dom.Window.alert(Webapi.Dom.window, "Data saved.")
+  let savedAlert = () => Webapi.Dom.Window.alert(Webapi.Dom.window, "Daten gespeichert.")
 
   @react.component
   let make = (~exportData, ~configDispatch: Db.actionConfig => unit, ~loadJson) => {
@@ -133,20 +133,19 @@ module GistOpts = {
     }, [auth.github_token])
 
     <div>
-      <h3> {"Backup to GitHub"->React.string} </h3>
+      <h3> {"Backup mit GitHub"->React.string} </h3>
       <p className="caption-30">
-        {"With a GitHub account, you can save your data to a "->React.string}
+        {"Mit einem GitHub-Account kann man die Daten in einem "->React.string}
         <a href="https://gist.github.com/">
-          {"gist "->React.string}
+          {"Gist "->React.string}
           <Icons.ExternalLink />
         </a>
-        {`. Note that gists can be ${HtmlEntities.ldquo}secret${HtmlEntities.rdquo} but are always 
-        publicly accessible. For more information, `->React.string}
+        {` speichern. Bemerke, dass gists zwar ${HtmlEntities.ldquo}secret${HtmlEntities.rdquo} sein können, aber immer öffentlich zugänglich sind. Lese die `->React.string}
         <a href="https://docs.github.com/en/github/writing-on-github/creating-gists">
-          {"refer to the gist documentation on GitHub "->React.string}
+          {"Gist-Dokumentation auf GitHub "->React.string}
           <Icons.ExternalLink />
         </a>
-        {"."->React.string}
+        {"für weitere Informationen."->React.string}
       </p>
       <p>
         {switch auth.github_token {
@@ -163,15 +162,15 @@ module GistOpts = {
                       authDispatch(SetGitHubToken(token))
                     }
                   | (Some(err), _) => Js.Console.error(err)
-                  | (None, None) => Js.Console.error("Something wrong happened.")
+                  | (None, None) => Js.Console.error("Etwas ist schiefgelaufen.")
                   },
               )
             }}>
-            {"Log in with GitHub"->React.string}
+            {"Mit GitHub anmelden"->React.string}
           </button>
         | _ =>
           <a href={"https://github.com/settings/connections/applications/" ++ github_app_id}>
-            {"Change or remove your GitHub access "->React.string}
+            {"GitHub-Zugriff verwalten "->React.string}
             <Icons.ExternalLink />
           </a>
         }}
@@ -198,15 +197,15 @@ module GistOpts = {
               ->Promise.catch(e => {
                 Webapi.Dom.Window.alert(
                   Webapi.Dom.window,
-                  "Backup failed. Check your GitHub credentials.",
+                  "Backup nicht erfolgt. Überprüfe deine GitHub-Anmeldung.",
                 )
                 handleAuthError(e)
               })
               ->ignore
             }}>
-            {"Create a new gist"->React.string}
+            {"Einen neuen Gist erstellen"->React.string}
           </button>
-          <p className="caption-30"> {"Or select an existing gist."->React.string} </p>
+          <p className="caption-30"> {"Oder einen bestehenden Gist auswählen."->React.string} </p>
           <select
             value={auth.github_gist_id}
             onBlur={e => {
@@ -217,7 +216,7 @@ module GistOpts = {
               let id = ReactEvent.Form.currentTarget(e)["value"]
               authDispatch(SetGistId(id))
             }}>
-            <option value=""> {"No gist selected."->React.string} </option>
+            <option value=""> {"Kein Gist ausgewählt."->React.string} </option>
             {gists
             ->Array.map(({name, id, updated_at}) =>
               <option key=id value=id>
@@ -232,7 +231,7 @@ module GistOpts = {
             <button
               onClick={_ => {
                 switch auth.github_gist_id {
-                | "" => Js.Console.error("Gist ID is blank.")
+                | "" => Js.Console.error("Gist ID ist leer.")
                 | id =>
                   Octokit.Gist.write(
                     ~id,
@@ -250,7 +249,7 @@ module GistOpts = {
                   ->Promise.catch(e => {
                     Webapi.Dom.Window.alert(
                       Webapi.Dom.window,
-                      "Backup failed. Check your GitHub credentials or try a different gist.",
+                      "Backup nicht erfolgt. Überprüfe deine GitHub-Anmeldung oder probiere einen anderen Gist.",
                     )
                     handleAuthError(e)
                   })
@@ -258,13 +257,13 @@ module GistOpts = {
                 }
               }}
               disabled={auth.github_gist_id == ""}>
-              {"Backup to this gist"->React.string}
+              {"Backup in diesem Gist"->React.string}
             </button>
             {" "->React.string}
             <button
               onClick={_ => {
                 switch auth.github_gist_id {
-                | "" => Js.Console.error("Gist ID is blank.")
+                | "" => Js.Console.error("Gist ID ist leer.")
                 | id =>
                   Octokit.Gist.read(~id, ~token=github_token)
                   ->Promise.thenResolve(result => {
@@ -278,7 +277,7 @@ module GistOpts = {
                 }
               }}
               disabled={auth.github_gist_id == ""}>
-              {"Load from this gist"->React.string}
+              {"Aus diesem Gist laden"->React.string}
             </button>
           </p>
           <p className="caption-30">
@@ -292,7 +291,7 @@ module GistOpts = {
                   | false => minify.setTrue()
                   }}
               />
-              {" Minify output."->React.string}
+              {" Ausgabe minimieren."->React.string}
             </label>
           </p>
         </div>
@@ -329,7 +328,7 @@ let make = (~windowDispatch=_ => ()) => {
     tourneysDispatch(SetAll(tournaments))
     configDispatch(SetState(config))
     playersDispatch(SetAll(players))
-    Webapi.Dom.Window.alert(Webapi.Dom.window, "Data loaded.")
+    Webapi.Dom.Window.alert(Webapi.Dom.window, "Daten geladen.")
   }
 
   let loadJson = json =>
@@ -387,14 +386,12 @@ let make = (~windowDispatch=_ => ()) => {
   }
   <Window.Body windowDispatch>
     <div className="content-area">
-      <h2> {React.string("Bye  settings")} </h2>
+      <h2> {React.string("Bye-Einstellungen")} </h2>
       <form>
-        <p className="caption-30">
-          {React.string("Select the default score given to a player who takes a bye.")}
-        </p>
+        <p className="caption-30"> {React.string("Wie viele Punkte zählt ein Bye?")} </p>
         <div style={ReactDOM.Style.make(~display="flex", ())}>
           <label className="body-20" style={ReactDOM.Style.make(~marginRight="16px", ())}>
-            {React.string("Full (")}
+            {React.string("Ganz (")}
             <span className="monospace"> {React.string("1")} </span>
             {React.string(") ")}
             <input
@@ -407,7 +404,7 @@ let make = (~windowDispatch=_ => ()) => {
             />
           </label>
           <label className="body-20" style={ReactDOM.Style.make(~marginRight="16px", ())}>
-            {React.string("Half (")}
+            {React.string("Halb (")}
             <span className="monospace"> {React.string("½")} </span>
             {React.string(") ")}
             <input
@@ -420,7 +417,7 @@ let make = (~windowDispatch=_ => ()) => {
             />
           </label>
           <label className="body-20">
-            {React.string("None (")}
+            {React.string("Null (")}
             <span className="monospace"> {React.string("0")} </span>
             {React.string(") ")}
             <input
@@ -434,36 +431,36 @@ let make = (~windowDispatch=_ => ()) => {
           </label>
         </div>
       </form>
-      <h2> {React.string("Manage data")} </h2>
+      <h2> {React.string("Daten verwalten")} </h2>
       <p className="caption-20">
-        {React.string("Last export: ")}
+        {React.string("Letzter Backup: ")}
         <LastBackupDate date=config.lastBackup />
       </p>
       <GistOpts configDispatch exportData loadJson />
-      <h3> {"Backup locally"->React.string} </h3>
+      <h3> {"Lokaler Backup"->React.string} </h3>
       <p>
         <a
           download={"RistSchach-" ++ (getDateForFile() ++ ".json")}
           href={"data:application/json," ++ exportDataURI}
           onClick={_ => configDispatch(SetLastBackup(Js.Date.make()))}>
           <Icons.Download />
-          {React.string(" Export data to a file.")}
+          {React.string(" Daten als Datei exportieren")}
         </a>
       </p>
-      <label htmlFor="file"> {React.string("Load data from a file:")} </label>
+      <label htmlFor="file"> {React.string("Daten aus einer Datei laden:")} </label>
       <input id="file" name="file" type_="file" onChange=handleFile />
       <h2> {React.string("Danger zone")} </h2>
-      <p className="caption-30"> {React.string("I hope you know what you're doing...")} </p>
+      <p className="caption-30"> {React.string("Ich hoffe, du weißt, was du machst...")} </p>
       <button onClick=reloadDemoData>
-        {React.string("Reset demo data (this erases everything else)")}
+        {React.string("Beispieldaten laden (löscht alles)")}
       </button>
       {React.string(" ")}
-      {if node_env != "production" {
-        <button onClick=loadTestData> {React.string("Load testing data")} </button>
+      {if node_env != "production" || true {
+        <button onClick=loadTestData> {React.string("Testdaten laden")} </button>
       } else {
         React.null
       }}
-      <h3> {React.string("Advanced: manually edit data")} </h3>
+      <h3> {React.string("Daten manuell bearbeiten")} </h3>
       <form onSubmit=handleText>
         <textarea
           className="pages__text-json"
@@ -475,7 +472,7 @@ let make = (~windowDispatch=_ => ()) => {
           onChange=handleTextChange
         />
         <p>
-          <input type_="submit" value="Load" />
+          <input type_="submit" value="Laden" />
         </p>
       </form>
     </div>

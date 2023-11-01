@@ -34,21 +34,21 @@ module Selecting = {
               ...tourney,
               playerIds: players->Map.keysToArray->Set.fromArray(~id=Id.id),
             })}>
-          {React.string("Select all")}
+          {React.string("Alle auswählen")}
         </button>
         <button
           className="button-micro"
           onClick={_ => setTourney({...tourney, playerIds: Set.make(~id=Id.id)})}>
-          {React.string("Select none")}
+          {React.string("Keine auswählen")}
         </button>
       </div>
       <table>
-        <caption> {React.string("Select players")} </caption>
+        <caption> {React.string("Spielerauswahl")} </caption>
         <thead>
           <tr>
-            <th> {React.string("First name")} </th>
-            <th> {React.string("Last name")} </th>
-            <th> {React.string("Select")} </th>
+            <th> {React.string("Vorname")} </th>
+            <th> {React.string("Nachname")} </th>
+            <th> {React.string("Ausgewählt")} </th>
           </tr>
         </thead>
         <tbody>
@@ -121,7 +121,7 @@ module OptionsForm = {
     module Validators = {
       let scoreAdjustment = scoreAdjustment =>
         switch Float.fromString(scoreAdjustment) {
-        | None => Error("Score adjustment must be a number.")
+        | None => Error("Manuelle Punkteingabe muss eine Zahl sein!")
         | Some(x) => Ok(x)
         }
     }
@@ -238,9 +238,9 @@ module OptionsForm = {
       let form = Form.useForm({scoreAdjustment: scoreAdjustment})
       <>
         <button className="button-micro button-primary" onClick={_ => dialog.setFalse()}>
-          {React.string("close")}
+          {React.string("Fertig")}
         </button>
-        <h2> {`Options for ${Player.fullName(p)}`->React.string} </h2>
+        <h2> {`Optionen für ${Player.fullName(p)}`->React.string} </h2>
         <form
           onSubmit={event => {
             ReactEvent.Form.preventDefault(event)
@@ -262,12 +262,11 @@ module OptionsForm = {
           }}>
           <h3>
             <label className="title-30" htmlFor={Data.Id.toString(p.id) ++ "-scoreAdjustment"}>
-              {"Score adjustment"->React.string}
+              {"Manuelle Punkteingabe"->React.string}
             </label>
           </h3>
           <p className="caption-30" id={Data.Id.toString(p.id) ++ "-scoreAdjustment-description"}>
-            {`Score adjustment will be added to this player's actual score.
-              It can be negative.`->React.string}
+            {`Der eingegebene Wert wird zur Punktzahl des Spieler addiert. Kann auch negativ sein.`->React.string}
           </p>
           <p>
             <input
@@ -289,13 +288,13 @@ module OptionsForm = {
                 ReactEvent.Mouse.preventDefault(event)
                 Form.updateScoreAdjustment(form, "0")
               }}>
-              {"Reset"->React.string}
+              {"Zurücksetzen"->React.string}
             </button>
           </p>
           {errorNotification(Form.scoreAdjustmentResult(form))}
           <p>
             <input
-              type_="submit" value="Save" disabled={Form.submitting(form) || !Form.valid(form)}
+              type_="submit" value="Speichern" disabled={Form.submitting(form) || !Form.valid(form)}
             />
           </p>
         </form>
@@ -315,7 +314,7 @@ module OptionsForm = {
             ...tourney,
             byeQueue: Array.concat(byeQueue, [p.id]),
           })}>
-        {"Bye signup"->React.string}
+        {"Bye-Anmeldung"->React.string}
       </button>
       {" "->React.string}
       <button className="button-micro" onClick={_ => dialog.setTrue()}>
@@ -323,13 +322,13 @@ module OptionsForm = {
           <Icons.More />
         </span>
         <Externals.VisuallyHidden>
-          {`More options for ${Player.fullName(p)}`->React.string}
+          {`Mehr Optionen für ${Player.fullName(p)}`->React.string}
         </Externals.VisuallyHidden>
       </button>
       <Externals.Dialog
         isOpen=dialog.state
         onDismiss=dialog.setFalse
-        ariaLabel={`Options for ${Player.fullName(p)}`}
+        ariaLabel={`Optionen für ${Player.fullName(p)}`}
         className="">
         <More setTourney dialog tourney p />
       </Externals.Dialog>
@@ -364,17 +363,17 @@ let make = (~tournament: LoadTournament.t) => {
     <div className="toolbar">
       <button onClick={_ => setIsSelecting(_ => true)}>
         <Icons.Edit />
-        {React.string(" Edit player roster")}
+        {React.string(" Spielerliste bearbeiten")}
       </button>
     </div>
     <Utils.PanelContainer>
       <Utils.Panel style={ReactDOM.Style.make(~flexShrink="0", ())}>
         <table>
-          <caption> {React.string("Current roster")} </caption>
+          <caption> {React.string("Spielerliste")} </caption>
           <thead>
             <tr>
               <th> {React.string("Name")} </th>
-              <th> {React.string("Options")} </th>
+              <th> {React.string("Optionen")} </th>
             </tr>
           </thead>
           <tbody className="content">
@@ -383,9 +382,12 @@ let make = (~tournament: LoadTournament.t) => {
         </table>
       </Utils.Panel>
       <Utils.Panel>
-        <h3> {React.string("Bye queue")} </h3>
+        <h3> {React.string("Bye-Warteschlange")} </h3>
         {switch byeQueue {
-        | [] => <p className="caption-20"> {React.string("No one has signed up yet.")} </p>
+        | [] =>
+          <p className="caption-20">
+            {React.string("Bisher ist keiner für ein Bye angemeldet.")}
+          </p>
         | byeQueue =>
           <table style={ReactDOM.Style.make(~width="100%", ())}>
             <tbody>
@@ -401,7 +403,7 @@ let make = (~tournament: LoadTournament.t) => {
                           ...tourney,
                           byeQueue: Js.Array2.filter(byeQueue, id => !Id.eq(pId, id)),
                         })}>
-                      {React.string("Remove")}
+                      {React.string("Entfernen")}
                     </button>
                   </td>
                 </tr>
@@ -413,10 +415,10 @@ let make = (~tournament: LoadTournament.t) => {
       <Externals.Dialog
         isOpen=isSelecting
         onDismiss={() => setIsSelecting(_ => false)}
-        ariaLabel="Select players"
+        ariaLabel="Spieler auswählen"
         className="">
         <button className="button-micro button-primary" onClick={_ => setIsSelecting(_ => false)}>
-          {React.string("Done")}
+          {React.string("Fertig")}
         </button>
         <Selecting tourney setTourney players playersDispatch />
       </Externals.Dialog>

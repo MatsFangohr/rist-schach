@@ -163,7 +163,7 @@ module SelectList = {
         <thead>
           <tr>
             <th>
-              <Externals.VisuallyHidden> {React.string("Controls")} </Externals.VisuallyHidden>
+              <Externals.VisuallyHidden> {React.string("Steuerung")} </Externals.VisuallyHidden>
             </th>
             <th>
               <Hooks.SortButton sortColumn=sortByName data=sorted dispatch=sortedDispatch>
@@ -232,7 +232,7 @@ module Stage = {
         )
         switch Rounds.set(roundList, roundId, newRound) {
         | Some(roundList) => setTourney({...tourney, roundList})
-        | None => Js.Console.error(`Couldn't add round ${Int.toString(roundId)}`)
+        | None => Js.Console.error(`Konnte Runde ${Int.toString(roundId)} nicht hinzufügen!`)
         }
         dispatch(Clear)
       | _ => ()
@@ -249,10 +249,10 @@ module Stage = {
     }
 
     <div>
-      <h2> {React.string("Selected for matching:")} </h2>
+      <h2> {React.string("Ausgewählt:")} </h2>
       <div className="content">
         <p>
-          {React.string("White: ")}
+          {React.string("Weiß: ")}
           {switch state.p1 {
           | Some(p) =>
             <>
@@ -262,7 +262,7 @@ module Stage = {
               <button className="button-micro button-ghost" onClick={_ => dispatch(RemoveP1)}>
                 <Icons.UserMinus />
                 <Externals.VisuallyHidden>
-                  {React.string(" Remove " ++ whiteName)}
+                  {React.string(" Entfernen " ++ whiteName)}
                 </Externals.VisuallyHidden>
               </button>
             </>
@@ -270,7 +270,7 @@ module Stage = {
           }}
         </p>
         <p>
-          {React.string("Black: ")}
+          {React.string("Schwarz: ")}
           {switch state.p2 {
           | Some(p) =>
             <>
@@ -280,7 +280,7 @@ module Stage = {
               <button className="button-micro button-ghost" onClick={_ => dispatch(RemoveP2)}>
                 <Icons.UserMinus />
                 <Externals.VisuallyHidden>
-                  {React.string(" Remove " ++ blackName)}
+                  {React.string(" Entfernen " ++ blackName)}
                 </Externals.VisuallyHidden>
               </button>
             </>
@@ -288,13 +288,13 @@ module Stage = {
           }}
         </p>
         <p>
-          {React.string("Match ideal: ")}
+          {React.string("Spiel-Ideal: ")}
           matchIdeal
         </p>
       </div>
       <p>
         <label>
-          {React.string("Pre-select winner ")}
+          {React.string("Gewinner vorbestimmen: ")}
           <Utils.TestId testId="pairpicker-preselect-winner">
             <select
               value={Match.Result.toString(state.result)}
@@ -304,15 +304,21 @@ module Stage = {
               onChange={e =>
                 ReactEvent.Form.target(e)["value"]->Match.Result.fromString->SetResult->dispatch}>
               <option value={Match.Result.toString(NotSet)}> {React.string("None")} </option>
-              <option value={Match.Result.toString(WhiteWon)}> {React.string("White won")} </option>
-              <option value={Match.Result.toString(BlackWon)}> {React.string("Black won")} </option>
-              <option value={Match.Result.toString(Draw)}> {React.string("Draw")} </option>
-              <option value={Match.Result.toString(Aborted)}> {React.string("Aborted")} </option>
+              <option value={Match.Result.toString(WhiteWon)}>
+                {React.string("Weiß gewinnt")}
+              </option>
+              <option value={Match.Result.toString(BlackWon)}>
+                {React.string("Schwarz gewinnt")}
+              </option>
+              <option value={Match.Result.toString(Draw)}> {React.string("Unentschieden")} </option>
+              <option value={Match.Result.toString(Aborted)}>
+                {React.string("Abgebrochen")}
+              </option>
               <option value={Match.Result.toString(WhiteAborted)}>
-                {React.string("White Aborted")}
+                {React.string("Weiß abgebrochen")}
               </option>
               <option value={Match.Result.toString(BlackAborted)}>
-                {React.string("Black Aborted")}
+                {React.string("Schwarz abgebrochen")}
               </option>
             </select>
           </Utils.TestId>
@@ -321,12 +327,12 @@ module Stage = {
       <div className="toolbar">
         <button disabled={state.num == Zero} onClick={_ => dispatch(Reverse)}>
           <Icons.Repeat />
-          {React.string(" Swap colors")}
+          {React.string(" Farben tauschen")}
         </button>
         {React.string(" ")}
         <button className="button-primary" disabled={state.num != Two} onClick=match>
           <Icons.Check />
-          {React.string(" Match selected")}
+          {React.string(" Ausgewählte Zusammenpaaren")}
         </button>
       </div>
     </div>
@@ -356,20 +362,20 @@ module PlayerInfo = {
     <div className="player-card">
       <h3> {player->Player.fullName->React.string} </h3>
       <dl>
-        <dt> {"Score"->React.string} </dt>
+        <dt> {"Punkte"->React.string} </dt>
         <dd> {score->React.float} </dd>
         <dt id={`rating-${Id.toString(player.id)}`} />
         <dt> {"Rating"->React.string} </dt>
         <dd> rating </dd>
-        <dt> {"Color balance"->React.string} </dt>
+        <dt> {"Farbbilanz"->React.string} </dt>
         <dd> {colorBalance->React.string} </dd>
-        <dt> {"Has had a bye round"->React.string} </dt>
-        <dd> {React.string(hasBye ? "Yes" : "No")} </dd>
-        <dt> {"Opponent history"->React.string} </dt>
+        <dt> {"Hat ein Bye erhalten"->React.string} </dt>
+        <dd> {React.string(hasBye ? "Ja" : "Nein")} </dd>
+        <dt> {"Alte Gegner"->React.string} </dt>
         <dd style={ReactDOM.Style.make(~margin="0", ())}>
           <ol> opponentResults </ol>
         </dd>
-        <dt> {"Players to avoid"->React.string} </dt>
+        <dt> {"Blacklist"->React.string} </dt>
         <dd style={ReactDOM.Style.make(~margin="0", ())}>
           <ul> avoidListHtml </ul>
         </dd>
@@ -441,19 +447,19 @@ let make = (
               className="button-primary"
               disabled={Map.size(unmatched) == 0}
               onClick={_ => autoPair(round)}>
-              {React.string("Auto-pair unmatched players")}
+              {React.string("Automatisch lösen")}
             </button>
             <button className="button-ghost" onClick={_ => autoPairHelp.setTrue()}>
               <Icons.Help />
               <Externals.VisuallyHidden>
-                {React.string("Auto-pair information.")}
+                {React.string("Auto-Informationen.")}
               </Externals.VisuallyHidden>
             </button>
           </div>
           <SelectList state dispatch unmatched pairData />
           <div className="toolbar">
             <button onClick={_ => addOrRemovePlayers.setTrue()}>
-              {React.string("Add or remove players from the roster.")}
+              {React.string("Spielerliste bearbeiten")}
             </button>
           </div>
         </Utils.Panel>
@@ -485,14 +491,14 @@ let make = (
       <Externals.Dialog
         isOpen=addOrRemovePlayers.state
         onDismiss=addOrRemovePlayers.setFalse
-        ariaLabel="Select players"
+        ariaLabel="Spieler auswählen"
         className="">
         <button className="button-micro" onClick={_ => addOrRemovePlayers.setFalse()}>
-          {React.string("Done")}
+          {React.string("Fertig")}
         </button>
         <PageTourneyPlayers.Selecting tourney setTourney players playersDispatch />
       </Externals.Dialog>
-      <HelpDialogs.Pairing state=autoPairHelp ariaLabel="Auto-pair information" />
+      <HelpDialogs.Pairing state=autoPairHelp ariaLabel="Algorithmusinformationen" />
     </div>
   }
 }

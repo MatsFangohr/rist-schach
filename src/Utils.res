@@ -7,9 +7,9 @@
 */
 open Belt
 
-let github_url = "https://github.com/MatsFangohr/RistSchach"
-let license_url = "https://github.com/MatsFangohr/RistSchach/blob/main/LICENSE"
-let issues_url = "https://github.com/MatsFangohr/RistSchach/issues/new"
+let github_url = "https://github.com/MatsFangohr/rist-schach"
+let license_url = "https://github.com/MatsFangohr/rist-schach/blob/main/LICENSE"
+let issues_url = "https://github.com/MatsFangohr/rist-schach/issues/new"
 
 /* Pass a `compare` function to avoid polymorphic compare errors. */
 type direction<'data, 'field> = (('field, 'field) => int, (. 'data) => 'field, 'data, 'data) => int

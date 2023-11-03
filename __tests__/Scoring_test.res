@@ -126,9 +126,7 @@ test("Pairing players twice displays the correct history", () => {
       "value": Data.Match.Result.toString(Data.Match.Result.BlackWon),
     },
   })
-  page
-  ->getByText(#RegExp(%re("/Informationen für: Crow T Robot vs Grandy McMaster/i")))
-  ->click
+  page->getByText(#RegExp(%re("/Informationen für: Crow T Robot vs Grandy McMaster/i")))->click
   /* This is a quick heuristic, probably should be more robust */
   page->queryAllByText(#RegExp(%re("/Crow T Robot - Gewonnen/i")))->Belt.Array.size->expect->toBe(2)
 })

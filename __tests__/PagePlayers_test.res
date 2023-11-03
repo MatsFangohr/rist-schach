@@ -30,7 +30,9 @@ describe("The avoid form works", () => {
   test("Adding a player to avoid works", () => {
     let page = render(<Profile id=TestData.newbieMcNewberson.id />)
     page
-    ->getByLabelText(#RegExp(%re("/Wähle einen Spieler aus, der nicht gegen diesen Spieler spielen soll/i")))
+    ->getByLabelText(
+      #RegExp(%re("/Wähle einen Spieler aus, der nicht gegen diesen Spieler spielen soll/i")),
+    )
     ->change({
       "target": {
         "value": TestData.grandyMcMaster,
@@ -50,7 +52,9 @@ describe("The avoid form works", () => {
     // Form reappears and auto-selects first player when players are available
     page->getByLabelText(#RegExp(%re("/Entferne tom servo von der Blacklist/i")))->click
     page
-    ->getByLabelText(#RegExp(%re("/Wähle einen Spieler aus, der nicht gegen diesen Spieler spielen soll/i")))
+    ->getByLabelText(
+      #RegExp(%re("/Wähle einen Spieler aus, der nicht gegen diesen Spieler spielen soll/i")),
+    )
     ->expect
     ->toHaveValue(#Str(TestData.tomServo.id->Data.Id.toString))
   })

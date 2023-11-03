@@ -179,7 +179,9 @@ module SelectTieBreaks = {
           </caption>
           <thead>
             <tr>
-              <th><Externals.VisuallyHidden> {React.string("Name")} </Externals.VisuallyHidden></th>
+              <th>
+                <Externals.VisuallyHidden> {React.string("Name")} </Externals.VisuallyHidden>
+              </th>
               <th>
                 <Externals.VisuallyHidden> {React.string("Steuerung")} </Externals.VisuallyHidden>
               </th>
@@ -221,10 +223,14 @@ module SelectTieBreaks = {
       <Utils.Panel>
         <div className="toolbar"> {React.string(HtmlEntities.nbsp)} </div>
         <table style={ReactDOM.Style.make(~marginTop="16px", ())}>
-          <caption className="title-30"> {React.string("Verfügbare Tiebreak-Strategien")} </caption>
+          <caption className="title-30">
+            {React.string("Verfügbare Tiebreak-Strategien")}
+          </caption>
           <thead>
             <tr>
-              <th> <Externals.VisuallyHidden>{React.string("Name")} </Externals.VisuallyHidden> </th>
+              <th>
+                <Externals.VisuallyHidden> {React.string("Name")} </Externals.VisuallyHidden>
+              </th>
               <th>
                 <Externals.VisuallyHidden> {React.string("Steuerung")} </Externals.VisuallyHidden>
               </th>

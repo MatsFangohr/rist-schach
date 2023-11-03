@@ -28,9 +28,7 @@ test("Ratings are updated correctly after a match.", () => {
     },
   })
   page
-  ->getByText(
-    #RegExp(%re("/Informationen für: newbie mcnewberson vs grandy mcmaster/i")),
-  )
+  ->getByText(#RegExp(%re("/Informationen für: newbie mcnewberson vs grandy mcmaster/i")))
   ->FireEvent.click
   page
   ->getByTestId(#Str("rating-Newbie_McNewberson___"))

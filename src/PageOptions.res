@@ -1,4 +1,4 @@
-/* 
+/*
   Copyright (c) 2022 John Jackson.
 
   This Source Code Form is subject to the terms of the Mozilla Public
@@ -308,7 +308,7 @@ let make = (~windowDispatch=_ => ()) => {
   let (config, configDispatch) = Db.useConfig()
 
   React.useEffect1(() => {
-    windowDispatch(Window.SetTitle("Options"))
+    windowDispatch(Window.SetTitle("Einstellungen"))
     Some(() => windowDispatch(SetTitle("")))
   }, [windowDispatch])
   /* memoize this so the `useEffect` hook syncs with the correct states */
@@ -448,15 +448,23 @@ let make = (~windowDispatch=_ => ()) => {
         </a>
       </p>
       <label htmlFor="file"> {React.string("Daten aus einer Datei laden:")} </label>
-      <input id="file" name="file" type_="file" onChange=handleFile />
+      <input
+        id="file"
+        name="file"
+        type_="file"
+        onChange=handleFile
+        style={ReactDOM.Style.make(~fontFamily="var(--font-main)", ())}
+      />
       <h2> {React.string("Danger zone")} </h2>
       <p className="caption-30"> {React.string("Ich hoffe, du weißt, was du machst...")} </p>
-      <button onClick=reloadDemoData>
+      <button onClick=reloadDemoData className="fonted-button">
         {React.string("Beispieldaten laden (löscht alles)")}
       </button>
       {React.string(" ")}
       {if node_env != "production" || true {
-        <button onClick=loadTestData> {React.string("Testdaten laden")} </button>
+        <button onClick=loadTestData className="fonted-button">
+          {React.string("Testdaten laden")}
+        </button>
       } else {
         React.null
       }}

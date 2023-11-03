@@ -66,7 +66,10 @@ describe("Tabs auto-change correctly.", () => {
     page->getByText(#RegExp(%re("/^Ausgewählte Zusammenpaaren$/i")))->click
     page->getByText(#RegExp(%re("/edit match for crow t robot vs tom servo/i")))->click
     page->getByText(#RegExp(%re("/^Entpaaren$/i")))->click
-    page->getByText(#RegExp(%re("/^Gepaarte Spiele$/i")))->expect->toHaveAttribute("aria-selected", "false")
+    page
+    ->getByText(#RegExp(%re("/^Gepaarte Spiele$/i")))
+    ->expect
+    ->toHaveAttribute("aria-selected", "false")
   })
 
   test("The tab selection changes when all players have been paired", () => {

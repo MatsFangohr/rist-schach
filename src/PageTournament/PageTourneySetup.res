@@ -1,4 +1,4 @@
-/*
+/* 
   Copyright (c) 2022 John Jackson.
 
   This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,7 +9,7 @@ open Belt
 open Router
 open Data
 
-/*
+/* 
   Why are dates so complicated?
   Note to future self & other maintainers: getDate() begins at 1, and
   getMonth() begins at 0. An HTML date input requires that the month begins at
@@ -161,7 +161,9 @@ let make = (~tournament: LoadTournament.t) => {
       <em> {React.string("alle")} </em>
       {React.string(" Byes, die in diesem Turnier ")}
       <em> {React.string("bisher")} </em>
-      {React.string(" vergeben wurden, auch manuell hinzugefügte. Um den Wert von zukünftigen Byes zu verändern, gehe zu den ")}
+      {React.string(
+        " vergeben wurden, auch manuell hinzugefügte. Um den Wert von zukünftigen Byes zu verändern, gehe zu den ",
+      )}
       <Link to_=Options> {React.string("RistSchach-Einstellungen")} </Link>
       {React.string(".")}
     </p>

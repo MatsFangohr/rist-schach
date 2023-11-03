@@ -100,12 +100,16 @@ module SortButton = {
       {if data.isDescending {
         <span style=chevronStyle>
           <Icons.ChevronUp />
-          <Externals.VisuallyHidden> {React.string("Aufsteigend sortieren.")} </Externals.VisuallyHidden>
+          <Externals.VisuallyHidden>
+            {React.string("Aufsteigend sortieren.")}
+          </Externals.VisuallyHidden>
         </span>
       } else {
         <span style=chevronStyle>
           <Icons.ChevronDown />
-          <Externals.VisuallyHidden> {React.string("Absteigend sortieren.")} </Externals.VisuallyHidden>
+          <Externals.VisuallyHidden>
+            {React.string("Absteigend sortieren.")}
+          </Externals.VisuallyHidden>
         </span>
       }}
     </button>

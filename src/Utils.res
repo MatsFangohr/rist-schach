@@ -8,7 +8,7 @@
 open Belt
 
 let github_url = "https://github.com/MatsFangohr/RistSchach"
-let license_url = "https://github.com/MatsFangohr/RistSchach/blob/master/LICENSE"
+let license_url = "https://github.com/MatsFangohr/RistSchach/blob/main/LICENSE"
 let issues_url = "https://github.com/MatsFangohr/RistSchach/issues/new"
 
 /* Pass a `compare` function to avoid polymorphic compare errors. */

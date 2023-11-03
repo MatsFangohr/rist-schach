@@ -23,8 +23,6 @@ module Array: {
 
 module WebpackAssets: {
   @module("./assets/icon-min.svg") external logo: string = "default"
-  @module("../graphics/bmc-button.svg") external buyMeACoffee: string = "default"
-  //@module("../graphics/caution.svg") external caution: string = "default"
 }
 
 module DateFormat: {

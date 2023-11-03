@@ -84,23 +84,27 @@ module TitleBar = {
       <div
         className="body-20"
         style={ReactDOM.Style.make(
-          ~left="0",
           ~marginLeft="auto",
           ~marginRight="auto",
-          ~position="absolute",
-          ~right="0",
           ~textAlign="center",
-          ~width="50%",
           ~whiteSpace="nowrap",
           ~overflow="hidden",
           (),
         )}>
+        
         {title->formatTitle->React.string}
       </div>
       <button className=toolbarClasses onClick={_ => dispatch(SetDialog(true))}>
         <Icons.Help />
         <Externals.VisuallyHidden> {React.string("About RistSchach")} </Externals.VisuallyHidden>
       </button>
+      <div className="pages__title-icon" style={ReactDOM.Style.make(
+          ~marginTop="auto",
+          ~margin="5px",
+          (),
+        )}>
+          <img src=Utils.WebpackAssets.logo alt="" height="30" width="30"/>
+        </div>
     </header>
 }
 

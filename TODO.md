@@ -1,6 +1,6 @@
 - [x] search for missing translations
 - [ ] remove ratings
 - [x] modify logo
-- [ ] add logo to header
+- [x] add logo to header
 - [x] add link to source to footer
 - [ ] replace images

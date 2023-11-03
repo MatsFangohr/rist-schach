@@ -50,7 +50,7 @@ describe("Tabs auto-change correctly.", () => {
     page->getByText(#RegExp(%re("/^Ausgewählte Zusammenpaaren$/i")))->click
     let matchesTab = page->getByText(#RegExp(%re("/^Gepaarte Spiele$/i")))
     matchesTab->click
-    page->getByText(#RegExp(%re("/edit match for joel robinson versus clayton forrester/i")))->click
+    page->getByText(#RegExp(%re("/edit match for joel robinson vs clayton forrester/i")))->click
     page->getByText(#RegExp(%re("/^Entpaaren$/i")))->click
     matchesTab->expect->toHaveAttribute("aria-selected", "true")
   })
@@ -64,7 +64,7 @@ describe("Tabs auto-change correctly.", () => {
     page->getByText(#RegExp(%re("/crow t robot hinzufügen/i")))->click
     page->getByText(#RegExp(%re("/tom servo hinzufügen/i")))->click
     page->getByText(#RegExp(%re("/^Ausgewählte Zusammenpaaren$/i")))->click
-    page->getByText(#RegExp(%re("/edit match for crow t robot versus tom servo/i")))->click
+    page->getByText(#RegExp(%re("/edit match for crow t robot vs tom servo/i")))->click
     page->getByText(#RegExp(%re("/^Entpaaren$/i")))->click
     page->getByText(#RegExp(%re("/^Gepaarte Spiele$/i")))->expect->toHaveAttribute("aria-selected", "false")
   })

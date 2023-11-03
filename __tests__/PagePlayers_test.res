@@ -36,14 +36,14 @@ describe("The avoid form works", () => {
         "value": TestData.grandyMcMaster,
       },
     })
-    page->getByText(#RegExp(%re("/^add$/i")))->click
+    page->getByText(#RegExp(%re("/^Hinzufügen$/i")))->click
     page->getByText(#RegExp(%re("/grandy mcmaster/i")))->expect->toBeInTheDocument
   })
 
   test("Pathologic: avoiding all players works as expected.", () => {
     let page = render(<Profile id=TestData.newbieMcNewberson.id />)
     for _ in 1 to TestData.players->Map.size->pred {
-      page->getByText(#RegExp(%re("/^add$/i")))->click
+      page->getByText(#RegExp(%re("/^Hinzufügen$/i")))->click
     }
     // Form disappears when all players are avoided.
     page->getByText(#RegExp(%re("/Keine Spieler sind verfügbar/i")))->expect->toBeInTheDocument

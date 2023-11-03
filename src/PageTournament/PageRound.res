@@ -239,7 +239,7 @@ module MatchRow = {
               onClick={_ => setSelectedMatch(_ => Some(m.id))}>
               <Icons.Circle />
               <Externals.VisuallyHidden>
-                {`Edit match for ${Player.fullName(whitePlayer)} versus ${Player.fullName(
+                {`Edit match for ${Player.fullName(whitePlayer)} vs ${Player.fullName(
                     blackPlayer,
                   )}`->React.string}
               </Externals.VisuallyHidden>
@@ -256,7 +256,7 @@ module MatchRow = {
             className="button-ghost" title="Spiel-Infos öffnen." onClick={_ => dialog.setTrue()}>
             <Icons.Info />
             <Externals.VisuallyHidden>
-              {`Informationen für: ${Player.fullName(whitePlayer)} versus ${Player.fullName(
+              {`Informationen für: ${Player.fullName(whitePlayer)} vs ${Player.fullName(
                   blackPlayer,
                 )}`->React.string}
             </Externals.VisuallyHidden>

@@ -156,7 +156,7 @@ module SelectTieBreaks = {
         <div className="toolbar">
           <button
             className="button-micro" disabled={selectedTb == None} onClick={_ => toggleTb(None)}>
-            {React.string("Deaktivieren")}
+            {React.string("Entfernen")}
           </button>
           <button className="button-micro" disabled={selectedTb == None} onClick={_ => moveTb(-1)}>
             <Icons.ArrowUp />
@@ -179,7 +179,7 @@ module SelectTieBreaks = {
           </caption>
           <thead>
             <tr>
-              <th> {React.string("Name")} </th>
+              <th><Externals.VisuallyHidden> {React.string("Name")} </Externals.VisuallyHidden></th>
               <th>
                 <Externals.VisuallyHidden> {React.string("Steuerung")} </Externals.VisuallyHidden>
               </th>
@@ -221,10 +221,10 @@ module SelectTieBreaks = {
       <Utils.Panel>
         <div className="toolbar"> {React.string(HtmlEntities.nbsp)} </div>
         <table style={ReactDOM.Style.make(~marginTop="16px", ())}>
-          <caption className="title-30"> {React.string("Available tiebreak methods")} </caption>
+          <caption className="title-30"> {React.string("Verfügbare Tiebreak-Strategien")} </caption>
           <thead>
             <tr>
-              <th> {React.string("Name")} </th>
+              <th> <Externals.VisuallyHidden>{React.string("Name")} </Externals.VisuallyHidden> </th>
               <th>
                 <Externals.VisuallyHidden> {React.string("Steuerung")} </Externals.VisuallyHidden>
               </th>
@@ -245,7 +245,7 @@ module SelectTieBreaks = {
                     React.null
                   } else {
                     <button className="button-micro" onClick={_ => toggleTb(Some(tieBreak))}>
-                      {React.string("Add")}
+                      {React.string("Hinzufügen")}
                     </button>
                   }}
                 </td>

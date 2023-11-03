@@ -328,7 +328,7 @@ module NewPlayerForm = {
         {errorNotification(Form.ratingResult(form))}
         <p>
           <button disabled={Form.submitting(form) || !Form.valid(form)}>
-            {"Add"->React.string}
+            {"Hinzufügen"->React.string}
           </button>
         </p>
       </fieldset>
@@ -596,7 +596,7 @@ module AvoidForm = {
               ->React.array}
             </select>
             {React.string(" ")}
-            <input className="button-micro" type_="submit" value="Add" />
+            <input className="button-micro" type_="submit" value="Hinzufügen" />
           </>
         | None => React.string("Keine Spieler sind verfügbar.")
         }}

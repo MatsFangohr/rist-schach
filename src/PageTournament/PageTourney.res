@@ -250,10 +250,10 @@ module Sidebar = {
             disabled={Rounds.size(roundList) == 0}
             onClick=delLastRound
             className="button-micro sidebar-button"
-            style={ReactDOM.Style.make(~marginTop="8px", ())}>
+            style={ReactDOM.Style.make(~marginTop="8px", ~height="fit-content",())}>
             <Icons.Trash />
             <span className="sidebar__hide-on-close">
-              {React.string(" Letzte Runde entfernen")}
+              {React.string(" Letzte Runde löschen")}
             </span>
           </button>
         </li>

@@ -507,7 +507,7 @@ let make = (~roundId, ~tournament) => {
     <TabList>
       <Tab disabled={unmatchedCount == activePlayersCount}>
         <Icons.List />
-        {React.string(" Spiele")}
+        {React.string(" Gepaarte Spiele")}
       </Tab>
       <Tab disabled={unmatchedCount == 0}>
         <Icons.Users />

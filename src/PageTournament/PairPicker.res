@@ -111,7 +111,7 @@ module SelectPlayerRow = {
           onClick={_ => dispatch(Add(player.id))}>
           <Icons.UserPlus />
           <Externals.VisuallyHidden>
-            {`Add ${Player.fullName(player)}`->React.string}
+            {`${Player.fullName(player)} hinzufügen`->React.string}
           </Externals.VisuallyHidden>
         </button>
       </td>
@@ -262,7 +262,7 @@ module Stage = {
               <button className="button-micro button-ghost" onClick={_ => dispatch(RemoveP1)}>
                 <Icons.UserMinus />
                 <Externals.VisuallyHidden>
-                  {React.string(" Entfernen " ++ whiteName)}
+                  {React.string(whiteName ++ " entfernen")}
                 </Externals.VisuallyHidden>
               </button>
             </>
@@ -280,7 +280,7 @@ module Stage = {
               <button className="button-micro button-ghost" onClick={_ => dispatch(RemoveP2)}>
                 <Icons.UserMinus />
                 <Externals.VisuallyHidden>
-                  {React.string(" Entfernen " ++ blackName)}
+                  {React.string(blackName ++ " entfernen ")}
                 </Externals.VisuallyHidden>
               </button>
             </>

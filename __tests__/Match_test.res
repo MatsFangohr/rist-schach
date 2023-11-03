@@ -17,11 +17,11 @@ test("Ratings are updated correctly after a match.", () => {
       {tournament => <PageRound tournament roundId=1 />}
     </LoadTournament>,
   )
-  page->getByText(#RegExp(%re("/add newbie mcnewberson/i")))->JestDom.FireEvent.click
-  page->getByText(#RegExp(%re("/add grandy mcmaster/i")))->JestDom.FireEvent.click
-  page->getByText(#RegExp(%re("/match selected/i")))->JestDom.FireEvent.click
+  page->getByText(#RegExp(%re("/newbie mcnewberson hinzufügen/i")))->JestDom.FireEvent.click
+  page->getByText(#RegExp(%re("/grandy mcmaster hinzufügen/i")))->JestDom.FireEvent.click
+  page->getByText(#RegExp(%re("/Ausgewählte Zusammenpaaren/i")))->JestDom.FireEvent.click
   page
-  ->getByDisplayValue(#Str("Select winner"))
+  ->getByDisplayValue(#Str("Sieger auswählen"))
   ->FireEvent.change({
     "target": {
       "value": Data.Match.Result.toString(Data.Match.Result.WhiteWon),
@@ -29,7 +29,7 @@ test("Ratings are updated correctly after a match.", () => {
   })
   page
   ->getByText(
-    #RegExp(%re("/view information for match: newbie mcnewberson versus grandy mcmaster/i")),
+    #RegExp(%re("/Informationen für: newbie mcnewberson versus grandy mcmaster/i")),
   )
   ->FireEvent.click
   page

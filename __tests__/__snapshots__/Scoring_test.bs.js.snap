@@ -21,7 +21,7 @@ Object {
               class="title-10"
               scope="col"
             >
-              Rank
+              Rang
             </th>
             <th
               class="title-10"
@@ -33,7 +33,7 @@ Object {
               class="title-10"
               scope="col"
             >
-              Score
+              Punkte
             </th>
             <th
               class="title-10"
@@ -642,7 +642,7 @@ Object {
             class="title-10"
             scope="col"
           >
-            Rank
+            Rang
           </th>
           <th
             class="title-10"
@@ -654,7 +654,7 @@ Object {
             class="title-10"
             scope="col"
           >
-            Score
+            Punkte
           </th>
           <th
             class="title-10"
@@ -1320,7 +1320,7 @@ Object {
               class="title-10"
               scope="col"
             >
-              Rank
+              Rang
             </th>
             <th
               class="title-10"
@@ -1332,7 +1332,7 @@ Object {
               class="title-10"
               scope="col"
             >
-              Score
+              Punkte
             </th>
             <th
               class="title-10"
@@ -1684,7 +1684,7 @@ Object {
             class="title-10"
             scope="col"
           >
-            Rank
+            Rang
           </th>
           <th
             class="title-10"
@@ -1696,7 +1696,7 @@ Object {
             class="title-10"
             scope="col"
           >
-            Score
+            Punkte
           </th>
           <th
             class="title-10"

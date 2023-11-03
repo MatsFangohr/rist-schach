@@ -15,7 +15,7 @@ JestDom.init()
 /* I think the Reach Dialog component may have a problem with this? */
 test("Creating a new tournament works", () => {
   let page = render(<PageTournamentList />)
-  page->getByText(#RegExp(%re("/add tournament/i")))->click
+  page->getByText(#RegExp(%re("/Turnier hinzufügen/i")))->click
   page
   ->getByLabelText(#RegExp(%re("/name:/i")))
   ->change({
@@ -23,7 +23,7 @@ test("Creating a new tournament works", () => {
       "value": "Deep 13 Open",
     },
   })
-  page->getByText(#RegExp(%re("/create/i")))->click
+  page->getByText(#RegExp(%re("/^hinzufügen$/i")))->click
   page->getByLabelText(#Str("Delete “Deep 13 Open”"))->expect->toBeInTheDocument
 })
 

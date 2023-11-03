@@ -109,7 +109,7 @@ test("Players are paired correctly after a draw (more complex).", () => {
       {tournament => <PageRound tournament roundId=4 />}
     </LoadTournament>,
   )
-  page->getByText(#RegExp(%re("/auto-pair unmatched players/i")))->click
+  page->getByText(#RegExp(%re("/Automatisch lösen/i")))->click
 
   page->expect->toMatchSnapshot
 })
@@ -121,7 +121,7 @@ test("Auto-matching with bye players works", () => {
     </LoadTournament>,
   )
 
-  page->getByText(#RegExp(%re("/auto-pair unmatched players/i")))->click
+  page->getByText(#RegExp(%re("/Automatisch lösen/i")))->click
 
   page->getByTestId(#Str("match-3-black"))->expect->toHaveTextContent(#Str("[Bye]"))
 })
@@ -136,25 +136,25 @@ test("Auto-matching works with manually adjusted scores", () => {
       </>}
     </LoadTournament>,
   )
-  page->getByText(#RegExp(%re("/more options for kinga forrester/i")))->click
+  page->getByText(#RegExp(%re("/Mehr Optionen für kinga forrester/i")))->click
   page
-  ->getByLabelText(#RegExp(%re("/score adjustment/i")))
+  ->getByLabelText(#RegExp(%re("/Manuelle Punkteingabe/i")))
   ->change({
     "target": {
       "value": "3",
     },
   })
-  page->getByText(#RegExp(%re("/save/i")))->click
-  page->getByText(#RegExp(%re("/more options for TV's Max/i")))->click
+  page->getByText(#RegExp(%re("/Speichern/i")))->click
+  page->getByText(#RegExp(%re("/Mehr Optionen für TV's Max/i")))->click
   page
-  ->getByLabelText(#RegExp(%re("/score adjustment/i")))
+  ->getByLabelText(#RegExp(%re("/Manuelle Punkteingabe/i")))
   ->change({
     "target": {
       "value": "-3",
     },
   })
-  page->getByText(#RegExp(%re("/save/i")))->click
-  page->getByText(#RegExp(%re("/auto-pair unmatched players/i")))->click
+  page->getByText(#RegExp(%re("/Speichern/i")))->click
+  page->getByText(#RegExp(%re("/Automatisch lösen/i")))->click
   page->getByTestId(#Str("match-0-white"))->expect->toHaveTextContent(#Str("Bobo Professor"))
 })
 
@@ -165,8 +165,8 @@ describe("Manually pairing and byes.", () => {
         {tournament => <PageRound tournament roundId=0 />}
       </LoadTournament>,
     )
-    page->getByText(#Str("Add Joel Robinson"))->click
-    page->getByText(#Str("Add Tom Servo"))->click
+    page->getByText(#Str("Joel Robinson hinzufügen"))->click
+    page->getByText(#Str("Tom Servo hinzufügen"))->click
     page
     ->getByTestId(#Str("pairpicker-preselect-winner"))
     ->expect
@@ -179,8 +179,8 @@ describe("Manually pairing and byes.", () => {
         {tournament => <PageRound tournament roundId=0 />}
       </LoadTournament>,
     )
-    page->getByText(#Str("Add [Bye]"))->click
-    page->getByText(#Str("Add Joel Robinson"))->click
+    page->getByText(#Str("[Bye] hinzufügen"))->click
+    page->getByText(#Str("Joel Robinson hinzufügen"))->click
     page
     ->getByTestId(#Str("pairpicker-preselect-winner"))
     ->expect
@@ -193,9 +193,9 @@ describe("Manually pairing and byes.", () => {
         {tournament => <PageRound tournament roundId=0 />}
       </LoadTournament>,
     )
-    page->getByText(#Str("Add [Bye]"))->click
-    page->getByText(#Str("Add Joel Robinson"))->click
-    page->getByText(#Str("Remove [Bye]"))->click
+    page->getByText(#Str("[Bye] hinzufügen"))->click
+    page->getByText(#Str("Joel Robinson hinzufügen"))->click
+    page->getByText(#Str("[Bye] entfernen"))->click
     page
     ->getByTestId(#Str("pairpicker-preselect-winner"))
     ->expect

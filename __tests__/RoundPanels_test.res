@@ -19,7 +19,7 @@ describe("Tabs auto-change correctly.", () => {
         {tournament => <PageRound tournament roundId=1 />}
       </LoadTournament>,
     )
-    let selectTab = page->getByText(#RegExp(%re("/unmatched players \(/i")))
+    let selectTab = page->getByText(#RegExp(%re("/Ungepaarte Spieler \(/i")))
     selectTab->expect->toHaveAttribute("aria-selected", "true")
   })
 
@@ -29,10 +29,10 @@ describe("Tabs auto-change correctly.", () => {
         {tournament => <PageRound tournament roundId=1 />}
       </LoadTournament>,
     )
-    let selectTab = page->getByText(#RegExp(%re("/unmatched players \(/i")))
-    page->getByText(#RegExp(%re("/add crow t robot/i")))->click
-    page->getByText(#RegExp(%re("/add tom servo/i")))->click
-    page->getByText(#RegExp(%re("/^match selected$/i")))->click
+    let selectTab = page->getByText(#RegExp(%re("/Ungepaarte Spieler \(/i")))
+    page->getByText(#RegExp(%re("/crow t robot hinzufügen/i")))->click
+    page->getByText(#RegExp(%re("/tom servo hinzufügen/i")))->click
+    page->getByText(#RegExp(%re("/^Ausgewählte Zusammenpaaren$/i")))->click
     selectTab->expect->toHaveAttribute("aria-selected", "true")
   })
 
@@ -42,16 +42,16 @@ describe("Tabs auto-change correctly.", () => {
         {tournament => <PageRound tournament roundId=1 />}
       </LoadTournament>,
     )
-    page->getByText(#RegExp(%re("/add crow t robot/i")))->click
-    page->getByText(#RegExp(%re("/add tom servo/i")))->click
-    page->getByText(#RegExp(%re("/^match selected$/i")))->click
-    page->getByText(#RegExp(%re("/add joel robinson/i")))->click
-    page->getByText(#RegExp(%re("/add clayton forrester/i")))->click
-    page->getByText(#RegExp(%re("/^match selected$/i")))->click
-    let matchesTab = page->getByText(#RegExp(%re("/^matches$/i")))
+    page->getByText(#RegExp(%re("/crow t robot hinzufügen/i")))->click
+    page->getByText(#RegExp(%re("/tom servo hinzufügen/i")))->click
+    page->getByText(#RegExp(%re("/^Ausgewählte Zusammenpaaren$/i")))->click
+    page->getByText(#RegExp(%re("/joel robinson hinzufügen/i")))->click
+    page->getByText(#RegExp(%re("/clayton forrester hinzufügen/i")))->click
+    page->getByText(#RegExp(%re("/^Ausgewählte Zusammenpaaren$/i")))->click
+    let matchesTab = page->getByText(#RegExp(%re("/^Gepaarte Spiele$/i")))
     matchesTab->click
     page->getByText(#RegExp(%re("/edit match for joel robinson versus clayton forrester/i")))->click
-    page->getByText(#RegExp(%re("/^unmatch$/i")))->click
+    page->getByText(#RegExp(%re("/^Entpaaren$/i")))->click
     matchesTab->expect->toHaveAttribute("aria-selected", "true")
   })
 
@@ -61,12 +61,12 @@ describe("Tabs auto-change correctly.", () => {
         {tournament => <PageRound tournament roundId=1 />}
       </LoadTournament>,
     )
-    page->getByText(#RegExp(%re("/add crow t robot/i")))->click
-    page->getByText(#RegExp(%re("/add tom servo/i")))->click
-    page->getByText(#RegExp(%re("/^match selected$/i")))->click
+    page->getByText(#RegExp(%re("/crow t robot hinzufügen/i")))->click
+    page->getByText(#RegExp(%re("/tom servo hinzufügen/i")))->click
+    page->getByText(#RegExp(%re("/^Ausgewählte Zusammenpaaren$/i")))->click
     page->getByText(#RegExp(%re("/edit match for crow t robot versus tom servo/i")))->click
-    page->getByText(#RegExp(%re("/^unmatch$/i")))->click
-    page->getByText(#RegExp(%re("/Matches/i")))->expect->toHaveAttribute("aria-selected", "false")
+    page->getByText(#RegExp(%re("/^Entpaaren$/i")))->click
+    page->getByText(#RegExp(%re("/^Gepaarte Spiele$/i")))->expect->toHaveAttribute("aria-selected", "false")
   })
 
   test("The tab selection changes when all players have been paired", () => {
@@ -75,9 +75,9 @@ describe("Tabs auto-change correctly.", () => {
         {tournament => <PageRound tournament roundId=1 />}
       </LoadTournament>,
     )
-    page->getByText(#RegExp(%re("/^auto-pair unmatched players$/i")))->click
+    page->getByText(#RegExp(%re("/^Automatisch lösen$/i")))->click
     page
-    ->getByText(#RegExp(%re("/^Unmatched players/i")))
+    ->getByText(#RegExp(%re("/^Ungepaarte Spieler/i")))
     ->expect
     ->toHaveAttribute("aria-selected", "false")
   })

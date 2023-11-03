@@ -97,15 +97,15 @@ test("Manually adjusting scores works", () => {
       </>}
     </LoadTournament>,
   )
-  page->getByText(#RegExp(%re("/more options for kinga forrester/i")))->click
+  page->getByText(#RegExp(%re("/Mehr Optionen für kinga forrester/i")))->click
   page
-  ->getByLabelText(#RegExp(%re("/score adjustment/i")))
+  ->getByLabelText(#RegExp(%re("/Manuelle Punkteingabe/i")))
   ->change({
     "target": {
       "value": "100",
     },
   })
-  page->getByText(#RegExp(%re("/save/i")))->click
+  page->getByText(#RegExp(%re("/Speichern/i")))->click
   page->getByTestId(#Str("rank-1.0"))->expect->toHaveTextContent(#Str("Kinga Forrester"))
 })
 
@@ -115,20 +115,20 @@ test("Pairing players twice displays the correct history", () => {
       {tournament => <PageRound tournament roundId=1 />}
     </LoadTournament>,
   )
-  page->getByText(#RegExp(%re("/add crow t robot/i")))->click
-  page->getByText(#RegExp(%re("/add grandy mcmaster/i")))->click
-  page->getByText(#RegExp(%re("/match selected/i")))->click
-  page->getByText(#RegExp(%re("/^Matches$/")))->click
+  page->getByText(#RegExp(%re("/crow t robot hinzufügen/i")))->click
+  page->getByText(#RegExp(%re("/grandy mcmaster hinzufügen/i")))->click
+  page->getByText(#RegExp(%re("/Ausgewählte Zusammenpaaren/i")))->click
+  page->getByText(#RegExp(%re("/^Gepaarte Spiele$/")))->click
   page
-  ->getByDisplayValue(#Str("Select winner"))
+  ->getByDisplayValue(#Str("Sieger auswählen"))
   ->change({
     "target": {
       "value": Data.Match.Result.toString(Data.Match.Result.BlackWon),
     },
   })
   page
-  ->getByText(#RegExp(%re("/View information for match: Crow T Robot versus Grandy McMaster/i")))
+  ->getByText(#RegExp(%re("/Informationen für: Crow T Robot versus Grandy McMaster/i")))
   ->click
   /* This is a quick heuristic, probably should be more robust */
-  page->queryAllByText(#RegExp(%re("/Crow T Robot - Won/i")))->Belt.Array.size->expect->toBe(2)
+  page->queryAllByText(#RegExp(%re("/Crow T Robot - Gewonnen/i")))->Belt.Array.size->expect->toBe(2)
 })
